@@ -18,7 +18,7 @@ if (isset($_POST["submit"])) {
     if ($found_user) {
         $user_role = Role::check_user_role($found_user->id);
         $session->login($found_user, $user_role);
-        if ($_POST['remember_me'] == "Yes") {
+        if (isset($_POST['remember_me']) && $_POST['remember_me'] == "Yes") {
             User::set_remember_me($found_user->id);
         }
         redirect_to("main.php");

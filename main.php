@@ -37,7 +37,6 @@ if (!$session->is_logged_in()) {
                             $receiver = get_full_name($live_feed->receiver_id);
                             $category = get_category_name($live_feed->category_id);
                             $picture = User::get_picture_id($live_feed->receiver_id);
-                            print_r($live_feed->get_all_comments());
                             echo "
                 <li class=\"tu b ahx\">
                   <img
@@ -57,10 +56,41 @@ if (!$session->is_logged_in()) {
                      
                        <p>
                         " . $live_feed->description . "
-                      </p>
-                    </div>
-                  </div>
-                </li>";
+                      </p>";
+
+                            if(!empty($live_feed->get_all_comments())){
+                                echo "<ul>";
+                            }
+                            //Comments from this appreciation
+                            foreach ($live_feed->get_all_comments() as $comment) {
+                                $commentor = get_full_name($comment->user);
+                                $commentDate = $comment->date;
+                                $commentText = $comment->commentText;
+
+                                //html for said comments
+                                echo "
+                                    
+                                    <li>
+                                        ". $commentor. ": " . $commentText . "
+                                    </li>
+                                
+                                
+                                
+                                
+                            ";
+
+
+                            }
+
+                            if(!empty($live_feed->get_all_comments())){
+                                echo "</ul>";
+                            }
+                            echo" </div>
+                  </div></li>";
+
+
+
+
                         }
                         ?>
                     </ul>

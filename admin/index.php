@@ -46,7 +46,7 @@ while ($row = $database->fetch_array($result_line)) {
 }
 
 ?>
-<?php include("../layouts/header.php"); ?>
+<?php include_layout_template("header.php"); ?>
 <?php include("../layouts/admin_sidebar.php"); ?>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

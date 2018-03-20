@@ -119,8 +119,16 @@ function include_css($css="") {
     return 'css'.DS.$css;
 }
 
+function include_admin_css($css="") {
+    return '../css'.DS.$css;
+}
+
 function include_js($js="") {
     return 'js'.DS.$js;
+}
+
+function include_admin_js($js="") {
+    return '../js'.DS.$js;
 }
 
 function admin_sidebar_active($link1="", $link2="", $link3="", $link4="") {

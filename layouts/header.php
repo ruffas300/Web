@@ -19,36 +19,69 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
     <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="<?php echo include_js("bootstrap.min.js"); ?>"></script>
-      <script src="<?php echo include_js("selectize.min.js"); ?>"></script>
+
+    
+      <?php
+
+      if(strpos($_SERVER['PHP_SELF'],"/admin/") !== false){
+          echo "Admin site MF";
+          echo strpos($_SERVER['PHP_SELF']);
+          echo DS;
+          echo SITE_ROOT;
+
+          echo "<script src=\"".include_admin_js("bootstrap.min.js")."\"></script>";
+          echo "<script src=\"".include_admin_js("selectize.min.js")."\"></script>";
+          echo "<link href=\"".include_admin_css("bootstrap.min.css")."\" rel=\"stylesheet\">";
 
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo include_css("bootstrap.min.css"); ?>" rel="stylesheet">
+          echo "<link href=\"".include_admin_css("admin-css.css")."\" rel=\"stylesheet\">";
+          echo "<link href=\"".include_admin_css("footer")."\" rel=\"stylesheet\">";
+          echo "<link href=\"".include_admin_css("selectize.min.css")."\" rel=\"stylesheet\">";
+          echo "<link href=\"".include_admin_css("admin-css.css")."\" rel=\"stylesheet\">";
+          echo "<link href=\"".include_admin_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">";
+          echo "<link href=\"".include_admin_css("footer.css")."\" rel=\"stylesheet\">";
 
-    <!-- Custom styles for this template -->
-    <link href="<?php echo include_css("admin-css.css"); ?>" rel="stylesheet">
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"main.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"my_configuration.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"my_appreciation.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"view_pending.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"help.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"release_notes.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; } ?>
-    <link href="<?php echo include_css("/footer.css"); ?>" rel="stylesheet">
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"login.php")==0) { echo "<link href=\"".include_css("signin.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"edit_appreciation.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"edit_appreciation.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; } ?>
-    <?php if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; } ?>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      }else{
+
+
+          echo "<script src=\"".include_js("bootstrap.min.js")."\"></script>";
+          echo "<script src=\"".include_js("selectize.min.js")."\"></script>";
+          echo "<link href=\"".include_css("bootstrap.min.css")."\" rel=\"stylesheet\">";
+
+
+          echo "<link href=\"".include_css("footer.css")."\" rel=\"stylesheet\">";
+
+          if (strcmp(basename($_SERVER['PHP_SELF']),"main.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"my_configuration.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"my_appreciation.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"view_pending.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"help.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"release_notes.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+
+            if (strcmp(basename($_SERVER['PHP_SELF']),"login.php")==0) { echo "<link href=\"".include_css("signin.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"edit_appreciation.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"edit_appreciation.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("selectize.min.css")."\" rel=\"stylesheet\">"; }
+            if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("selectize.bootstrap.css")."\" rel=\"stylesheet\">"; }
+
+
+      }
+
+
+
+
+          ?>
+
+
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -65,46 +98,46 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo 'main.php'; ?>">The Dunmore Difference</a>
+          <a class="navbar-brand" href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){ echo '../main.php';}else{ echo 'main.php';} ?>">The Dunmore Difference</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <?php if ($permissions->permissions['Give Appreciation']){ ?>
-            <li><a href="<?php echo 'recognize.php'; ?>">Recognize Someone</a></li>
+            <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){ echo '../recognize.php';}else{echo 'recognize.php';} ?>">Recognize Someone</a></li>
             <?php } ?>
-            <?php if ($permissions->permissions['Request Rewards']){ ?>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Request Rewards <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <?php 
-                        $sql = "SELECT DISTINCT category.id, category.category_name FROM user JOIN user_role ON user_role.user_id = user.id JOIN category_perm_bu ON category_perm_bu.bu_id = user.business_unit_id JOIN category_perm_role ON category_perm_role.role_id = user_role.role_id JOIN category ON category.id = category_perm_role.category_id WHERE user.id = ".$session->userid." AND category.is_reward = 1"; 
-                        $query = $database->query($sql);
-                        while($row = $database->fetch_array($query)) {
-                          $id = $row['id'];
-                          $name = $row['category_name'];
-                          
-                          echo "<li><a href=\"reward.php?id=".$id."\">".$name."</a></li>";
-                        }
-                ?>
-              </ul>
-            </li>
-            <?php } ?>
-            <li><a href="<?php echo 'help.php'; ?>">Help</a></li>
+<!--            --><?php //if ($permissions->permissions['Request Rewards']){ ?>
+<!--            <li class="dropdown">-->
+<!--              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Request Rewards <span class="caret"></span></a>-->
+<!--              <ul class="dropdown-menu">-->
+<!--                --><?php //
+//                        $sql = "SELECT DISTINCT category.id, category.category_name FROM user JOIN user_role ON user_role.user_id = user.id JOIN category_perm_bu ON category_perm_bu.bu_id = user.business_unit_id JOIN category_perm_role ON category_perm_role.role_id = user_role.role_id JOIN category ON category.id = category_perm_role.category_id WHERE user.id = ".$session->userid." AND category.is_reward = 1";
+//                        $query = $database->query($sql);
+//                        while($row = $database->fetch_array($query)) {
+//                          $id = $row['id'];
+//                          $name = $row['category_name'];
+//
+//                          echo "<li><a href=\"reward.php?id=".$id."\">".$name."</a></li>";
+//                        }
+//                ?>
+<!--              </ul>-->
+<!--            </li>-->
+<!--            --><?php //} ?>
+            <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../help.php';}else{echo 'help.php';}  ?>">Help</a></li>
             <?php
             if ($permissions->permissions['Admin Menu']){ ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo 'admin'.DS.'index.php'; ?>">Dashboard</a></li>
-                <li><a href="<?php echo 'admin'.DS.'user_management.php'; ?>">Users</a></li>
-                <li><a href="<?php echo 'admin'.DS.'businessunit_management.php'; ?>">Business Units</a></li>
-                <li><a href="<?php echo 'admin'.DS.'department_management.php'; ?>">Departments</a></li>
-                <li><a href="<?php echo 'admin'.DS.'category_management.php'; ?>">Recognition Categories</a></li>
-                <li><a href="<?php echo 'admin'.DS.'reward_management.php'; ?>">Rewards</a></li>
-                <li><a href="<?php echo 'admin'.DS.'service_management.php'; ?>">Service Awards</a></li>
-                <li><a href="<?php echo 'admin'.DS.'role_management.php'; ?>">Roles</a></li>
-                <li><a href="<?php echo 'admin'.DS.'approval_management.php'; ?>">Approvals</a></li>
-                <li><a href="<?php echo 'admin'.DS.'report_management.php'; ?>">Reports</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'index.php';}else{echo 'admin'.DS.'index.php';} ?>">Dashboard</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'user_management.php';}else{echo 'admin'.DS.'user_management.php';} ?>">Users</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){ echo 'businessunit_management.php';}else{'admin'.DS.'businessunit_management.php';} ?>">Business Units</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'department_management.php';}else{'admin'.DS.'department_management.php';} ?>">Departments</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'category_management.php';}else{'admin'.DS.'category_management.php';} ?>">Recognition Categories</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'reward_management.php';}else{'admin'.DS.'reward_management.php';} ?>">Rewards</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'service_management.php';}else{'admin'.DS.'service_management.php';} ?>">Service Awards</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'role_management.php';}else{'admin'.DS.'role_management.php';} ?>">Roles</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'approval_management.php';}else{'admin'.DS.'approval_management.php';} ?>">Approvals</a></li>
+                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'report_management.php';}else{'admin'.DS.'report_management.php';} ?>">Reports</a></li>
               </ul>
             <?php }
             ?>
@@ -112,10 +145,10 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo get_full_name($session->userid); ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="<?php echo 'my_profile.php'; ?>">My Profile</a></li>
-                  <li><a href="<?php echo 'my_appreciation.php'; ?>">My Recognition/Rewards</a></li>
-                  <li><a href="<?php echo 'view_pending.php'; ?>">View Pending</a></li>
-                  <li><a href="<?php echo 'my_configuration.php'; ?>">Configuration</a></li>
+                  <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_profile.php';}else{echo 'my_profile.php';}  ?>">My Profile</a></li>
+                  <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_appreciation.php';}else{echo 'my_appreciation.php';}; ?>">My Recognition/Rewards</a></li>
+                  <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../view_pending.php';}else{echo 'view_pending.php';} ?>">View Pending</a></li>
+                  <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_configuration.php';}else{echo 'my_configuration.php';} ?>">Configuration</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="<?php echo 'logout.php'; ?>">Log Out</a></li>
                 </ul>
