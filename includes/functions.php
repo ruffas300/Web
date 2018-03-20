@@ -120,7 +120,7 @@ function include_css($css="") {
 }
 
 function include_js($js="") {
-    return DS.'js'.DS.$js;
+    return 'js'.DS.$js;
 }
 
 function admin_sidebar_active($link1="", $link2="", $link3="", $link4="") {
