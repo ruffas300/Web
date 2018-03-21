@@ -12,8 +12,9 @@
         <div class="bqr agk">
           <div class="rv" style="background-image: url(<?php echo "bus_unit_picture/".$bu_picture; ?>);"></div>
           <div class="rq awx">
-          <img src="pictures/<?php echo $picture_id; ?>" height="110" width="120" class="bqs">
-          <p>Total number of recognition given and received year to date:</p>
+          <img src="pictures/<?php echo $picture_id; ?>"  class="round">
+
+              <p>Total number of recognition given and received year to date:</p>
           <ul class="bqt">
             <li class="bqu">
                 Given
@@ -35,7 +36,7 @@
             
             <?php foreach($left_stats[2] as $last_five) {
               $giver = get_full_name($last_five->giver_id);
-              $category = get_category_name($last_five->category_id);
+//              $category = get_category_name($last_five->category_id);
               $date = date('m/d/Y', strtotime($last_five->date_approved));
               echo "<li><strong>{$category}</strong> from {$giver} on {$date}</li>";
             }

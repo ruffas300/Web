@@ -14,21 +14,21 @@ if (!$permissions->permissions['Approve']){
 
 if (isset($_GET['id'])) {
     if(isset($_GET['type'])) {
-        if ($_GET['type'] == a) {
+        if ($_GET['type'] === 'a') {
             //approve
             if (Appreciation::process_appreciation($_GET['id'], $session->userid, 4)) {
-                Appreciation::process_app_email($_GET['id']);
+//                Appreciation::process_app_email($_GET['id']);
                 $session->set_message("Appreciation was approved.", "success");
                 redirect_to("approval_management.php");
             } else {
                 $session->set_message("There was an issue processing the appreciation, please try again.", "danger");
                 redirect_to("approval_management.php");
             } 
-        } elseif ($_GET['type'] == d) {
+        } elseif ($_GET['type'] === 'd') {
             //deny
             if (isset($_POST['submit'])) {
                 if (Appreciation::process_appreciation($_GET['id'], $session->userid, 5) && Appreciation::add_deny_reason($_GET['id'], $_POST['deny_description'])) {
-                    Appreciation::process_deny_email($_GET['id']);
+//                    Appreciation::process_deny_email($_GET['id']);
                     $session->set_message("Appreciation was denied.", "success");
                     redirect_to("approval_management.php");
                 } else {

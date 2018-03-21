@@ -21,6 +21,14 @@ if (isset($_POST['submit'])) {
     foreach ($_POST['receiver_id'] as $rec_id) {
         $appreciation = new Appreciation();
 
+        //Categories saved as text in db as csv
+        $categoryList= "";
+        foreach($_POST['category_id'] as $cat_id){
+            $categoryList .= $cat_id.",";
+        }
+        $appreciation->category_id = $categoryList;
+
+
         if(isset($_POST['category_points'])){
         $category_points = $database->escape_value($_POST['category_points']);
         $explode_category_points = explode('|', $category_points);
@@ -36,7 +44,8 @@ if (isset($_POST['submit'])) {
             $appreciation->category_id = $explode_category_points[0];
 
         }
-        $appreciation->description = $database->escape_value($_POST['description']);
+
+
         if (isset($_POST['give_points']) && $_POST['give_points'] == 1) {
             $appreciation->point_value = $explode_category_points[1];
             $appreciation->paid_out = 0;
@@ -49,9 +58,14 @@ if (isset($_POST['submit'])) {
             $appreciation->is_public = $database->escape_value($_POST['is_public']);
             $appreciation->status_id = 3;
         }else{
-
+            $appreciation->status_id = 3;
+            $appreciation->is_public = 1;
         }
-        
+
+        $appreciation->description = $database->escape_value($_POST['description']);
+        $appreciation->title = $database->escape_value($_POST['app_title']);
+
+
         if ($appreciation->create()) {
             $successful_result = true;
         } else {
@@ -136,6 +150,10 @@ if (isset($_POST['submit'])) {
                             });
                         </script>
 
+                        <div class="form-group">
+                            <label for="app_title">Title:</label>
+                            <textarea class="form-control" id="app_title" name="app_title" rows="1" cols="40" required></textarea>
+                        </div>
 
                         <div class="form-group">
                     <label for="description">What do you want to say?</label>

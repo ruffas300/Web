@@ -11,7 +11,13 @@ body {
   margin-top: 1rem;
   border-radius: 10px;
 }
-
+.round {
+  border-radius: 50%;
+  display: inline;
+  margin: 0 5px;
+  width: 100px;
+  height: 100px;
+}
 .bqt {
   list-style: none;
   padding: 0; }
@@ -68,6 +74,20 @@ body {
   border-radius: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
 
+.circle {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 1em auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  border: 5px solid #eee;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
 .img-rounded{border-radius:6px}
 .img-thumbnail{display:inline-block;max-width:100%;height:auto;padding:4px;line-height:1.42857143;background-color:#fff;border:1px solid #ddd;border-radius:4px;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out}
 .img-circle{border-radius:50%}hr{margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}

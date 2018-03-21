@@ -30,6 +30,7 @@ class Session {
             $this->logged_in = true;
         }
     }
+
     
     public function logout() {
         unset($_SESSION['user_id']);

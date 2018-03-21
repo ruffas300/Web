@@ -65,7 +65,7 @@ class Send_Mail {
         $mail->addAddress($mail_info[2]);
 
         $mail->Subject = 'You have been recognized for '.$mail_info[6].'!';
-        $mail->Body    = $mail_info[0].', you got an appreciation from '.$mail_info[3].' '.$mail_info[4].' for '.$mail_info['6'].'!<br><br>Point Value: '.$mail_info[8].'<br><br>Description: '.$mail_info[7];
+        $mail->Body    = $mail_info[0].', you got an appreciation from '.$mail_info[3].' '.$mail_info[4].' for '.'!<br><br><br><br>Description: '.$mail_info[7];
         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         
         if(!$mail->send()) {

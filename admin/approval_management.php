@@ -55,7 +55,7 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE sta
                 <th>Received By</th>
                 <th>Given By</th>
                 <th>Date Given</th>
-                <th>Category</th>
+                <th>Categories</th>
                 <th>Description</th>
                 <th>Point Value</th>
                 <th>Options</th>
@@ -67,7 +67,7 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE sta
                 <td><?php echo get_full_name($appreciation->receiver_id); ?></td>
                 <td><?php echo get_full_name($appreciation->giver_id); ?></td>
                 <td><?php echo $appreciation->date_given; ?></td>
-                <td><?php echo get_category_name($appreciation->category_id); ?></td>
+                <td><?php echo get_allcategory_names($appreciation->id); ?></td>
                 <td><?php echo $appreciation->description; ?></td>
                 <td><?php echo $appreciation->point_value; ?></td>
 

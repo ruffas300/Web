@@ -24,10 +24,7 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
       <?php
 
       if(strpos($_SERVER['PHP_SELF'],"/admin/") !== false){
-          echo "Admin site MF";
-          echo strpos($_SERVER['PHP_SELF']);
-          echo DS;
-          echo SITE_ROOT;
+
 
           echo "<script src=\"".include_admin_js("bootstrap.min.js")."\"></script>";
           echo "<script src=\"".include_admin_js("selectize.min.js")."\"></script>";
@@ -122,7 +119,6 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
 <!--              </ul>-->
 <!--            </li>-->
 <!--            --><?php //} ?>
-            <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../help.php';}else{echo 'help.php';}  ?>">Help</a></li>
             <?php
             if ($permissions->permissions['Admin Menu']){ ?>
             <li class="dropdown">
@@ -150,7 +146,7 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
                   <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../view_pending.php';}else{echo 'view_pending.php';} ?>">View Pending</a></li>
                   <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_configuration.php';}else{echo 'my_configuration.php';} ?>">Configuration</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="<?php echo 'logout.php'; ?>">Log Out</a></li>
+                  <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../logout.php';}else{echo 'logout.php';} ?>">Log Out</a></li>
                 </ul>
               </li>
           </ul>

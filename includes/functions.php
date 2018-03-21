@@ -1,5 +1,5 @@
 <?php
-
+require_once ('categoryObject.php');
 function redirect_to($new_location) {
     header ("Location: " . $new_location);
     exit;
@@ -44,10 +44,66 @@ function get_full_name($id) {
 function get_category_name($id) {
     //return category
     global $database;
+
     $result = $database->query("SELECT category_name FROM category WHERE id={$id} LIMIT 1");
     $row = $database->fetch_array($result);
     return $row['category_name'];
 }
+
+function get_allcategory_names($id) {
+    //return category
+    global $database;
+    $allCategoriesByName ="";
+
+
+    $result = $database->query("SELECT category_id FROM appreciation WHERE id={$id} LIMIT 1");
+    $row = $database->fetch_array($result);
+    $allIds = $row['category_id'];
+    $allIdsAsArray = explode(",",$allIds);
+
+    foreach ($allIdsAsArray as $catId) {
+        $int = (int)$catId;
+        $nameResult = $database->query("SELECT * FROM category WHERE id={$int}");
+        $nameRow = $database->fetch_array($nameResult);
+
+
+            $allCategoriesByName .= $nameRow['category_name'].",";
+
+
+
+    }
+
+    return $allCategoriesByName;
+}
+
+
+function get_allcategory_Objects($id) {
+    //return category
+    global $database;
+    $allCategories = [];
+
+
+    $result = $database->query("SELECT category_id FROM appreciation WHERE id={$id} LIMIT 1");
+    $row = $database->fetch_array($result);
+    $allIds = $row['category_id'];
+    $allIdsAsArray = explode(",",$allIds);
+
+    foreach ($allIdsAsArray as $catId) {
+        $int = (int)$catId;
+        $nameResult = $database->query("SELECT * FROM category WHERE id={$int} LIMIT 1");
+        $nameRow = $database->fetch_array($nameResult);
+
+
+        $allCategories[] = new CategoryObject($nameRow);
+
+
+
+    }
+
+    return $allCategories;
+}
+
+
 
 function get_department_name($id) {
     global $database;

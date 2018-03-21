@@ -78,7 +78,7 @@ $pending_appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation W
                         <tr>
                             <th>Given To</th>
                             <th>Date Given</th>
-                            <th>Category</th>
+                            <th>Categories</th>
                             <th>Description</th>
                             <th>Point Value</th>
                             <th>Options</th>
@@ -89,7 +89,7 @@ $pending_appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation W
                         <tr>
                             <td><?php echo get_full_name($pending_appreciation->receiver_id); ?></td>
                             <td><?php echo $pending_appreciation->date_given; ?></td>
-                            <td><?php echo get_category_name($pending_appreciation->category_id); ?></td>
+                            <td><?php echo get_allcategory_names($pending_appreciation->id); ?></td>
                             <td><?php echo $pending_appreciation->description; ?></td>
                             <td><?php echo $pending_appreciation->point_value; ?></td>
                             <td><a href="#" data-href="<?php echo $pending_appreciation->id; ?>" data-toggle="modal" data-target="#confirm-cancel"><button type="button" class="btn btn-primary">Cancel</button></a></td>
