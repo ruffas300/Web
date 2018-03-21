@@ -87,7 +87,7 @@ if (isset($_POST['submit'])) {
 <div class="container-fluid">
 <div class="row">
 <!-- left sidebar column -->
-<?php include_root_layout_template("user_sidebar.php"); ?>
+<?php //include_root_layout_template("user_sidebar.php"); ?>
 
 <!-- right main column -->
     <div class="col-md-6">

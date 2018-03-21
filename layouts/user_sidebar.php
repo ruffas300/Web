@@ -1,4 +1,5 @@
  <?php
+
     global $session;
     $picture_id = User::get_picture_id($session->userid);
     $bu_picture = Business_Unit::get_picture_id($session->userid);
@@ -7,7 +8,7 @@
  ?>
   <div class="col-md-3">
 
-      
+
    <!-- <div class="rp brb brc agk">  -->
         <div class="bqr agk">
           <div class="rv" style="background-image: url(<?php echo "bus_unit_picture/".$bu_picture; ?>);"></div>
@@ -33,7 +34,7 @@
         <div class="rq">
           <h4 class="agd">My last 5 recognition:</h4>
           <ul class="dc ayo">
-            
+
             <?php foreach($left_stats[2] as $last_five) {
               $giver = get_full_name($last_five->giver_id);
 //              $category = get_category_name($last_five->category_id);

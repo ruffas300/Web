@@ -18,7 +18,7 @@ if (!$session->is_logged_in()) {
     <div class="container-fluid">
         <div class="row">
             <!-- left sidebar column -->
-            <?php include("layouts/user_sidebar.php"); ?>
+<!--            --><?php //include("layouts/user_sidebar.php"); ?>
             <!-- right main column -->
             <div class="col-md-6">
                 <div class="fk">
@@ -98,7 +98,8 @@ if (!$session->is_logged_in()) {
                             <textarea class=\"form-control\" id=\"comment\" name=\"comment\" rows=\"1\" cols=\"40\" required></textarea>
                         </div>
                         
-                        <br><a href=\"main.php\"><button type=\"button\" class=\"btn btn-danger\">Cancel</button></a>  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" name=\"submit\">
+                       <br><a  href=\"main.php\"><button type=\"button\" class=\"btn btn-danger\">Cancel</button></a>  <input  type=\"submit\"class=\"btn btn-primary\" value=\"Submit\" name=\"submit\" > 
+                        
         </form>
 ";
 
