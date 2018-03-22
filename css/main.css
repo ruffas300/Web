@@ -11,6 +11,11 @@ body {
   margin-top: 1rem;
   border-radius: 10px;
 }
+.float-my-children > * {
+  float:left;
+  margin-right:5px;
+}
+
 .round {
   border-radius: 50%;
   display: inline;

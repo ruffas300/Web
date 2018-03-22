@@ -66,9 +66,14 @@ function get_allcategory_names($id) {
         $nameResult = $database->query("SELECT * FROM category WHERE id={$int}");
         $nameRow = $database->fetch_array($nameResult);
 
+        if ($catId === end($allIdsAsArray)) {
 
+            $allCategoriesByName .= $nameRow['category_name'];
+
+        }else{
             $allCategoriesByName .= $nameRow['category_name'].",";
 
+        }
 
 
     }
@@ -94,8 +99,9 @@ function get_allcategory_Objects($id) {
         $nameRow = $database->fetch_array($nameResult);
 
 
-        $allCategories[] = new CategoryObject($nameRow);
-
+        if ($catId !== end($allIdsAsArray)) {
+            $allCategories[] = new CategoryObject($nameRow);
+        }
 
 
     }

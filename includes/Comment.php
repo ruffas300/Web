@@ -54,4 +54,12 @@ class Comment{
         }
     }
 
+
+    public function get_picture_id() {
+        global $database;
+        $sql = "SELECT picture_id FROM user WHERE id={$this->user}";
+        $result = $database->query($sql);
+        $row = $database->fetch_array($result);
+        return $row['picture_id'];
+    }
 }

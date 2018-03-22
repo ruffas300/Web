@@ -4,7 +4,6 @@
     $picture_id = User::get_picture_id($session->userid);
     $bu_picture = Business_Unit::get_picture_id($session->userid);
     $left_stats = Appreciation::sidebar_user_stats_left($session->userid);
-    print_r($bu_picture);
  ?>
   <div class="col-md-3">
 

@@ -12,7 +12,10 @@ if (!$session->is_logged_in()) {
     <body style="background-color: #ffffff">
     
 <?php include("layouts/header.php"); ?>
-<?php echo output_message($session->get_message(), $session->get_alert_type()); ?>
+<?php echo output_message($session->get_message(), $session->get_alert_type());
+$picture_id = User::get_picture_id($session->userid);
+
+?>
     <img
             src="https://www.dunmore.com/dunDifference/bus_unit_picture/logo.png"/>
     <div class="container-fluid">
@@ -24,10 +27,6 @@ if (!$session->is_logged_in()) {
                 <div class="fk">
 
                     <ul class="ca bqf bqg agk">
-
-                        <li class="tu b ahx">
-                            <h3 class="agd">Recent Appreciation</h3>
-                        </li>
 
                         <?php
                         $live_feeds = Appreciation::find_for_livefeed(10);
@@ -83,7 +82,7 @@ if (!$session->is_logged_in()) {
                                 echo "
                                     
                                     <li class=\"tu b ahx\">
-                                    <img width='35px' height='35px' src=\"pictures/" . $picture . "\"><span>&nbsp</span>
+                                    <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\"><span>&nbsp</span>
                                         ". $commentor. ": " . $commentText ."
                                         <br>$commentDate</br>
                                     </li>
@@ -93,21 +92,34 @@ if (!$session->is_logged_in()) {
                             }
 
                             echo"<form method=\"POST\" action=\"recognize.php\">
-                        <div class=\"form-group\">
-                            <img width='35px' height='35px' src=\"pictures/" . $picture . "\"><span>&nbsp</span>
-                            <textarea class=\"form-control\" id=\"comment\" name=\"comment\" rows=\"1\" cols=\"40\" required></textarea>
-                        </div>
+                                   <li class=\"tu b ahx\">
+                                    <div class=\"form-group\">
+                                        <div style=\"position:absolute;\">
+                                          <div style=\"float: left;\">
+                                            <img width='35px' height='35px' src=\"pictures/" . $picture_id . "\" style=\"alignment:left;\">
+                                                <div style='float: right'>
+                                                  <textarea class=\"form-control\" id=\"comment\" name=\"comment\" rows=\"1\" cols=\"55\" required style='alignment: left'></textarea>
+                                                        <input  type=\"submit\"class=\"btn btn-primary\" id=\"commentSubmit\"value=\"Submit\" name=\"submit\"  style='alignment: right'/>
+                                                </div>
+                                          </div>
+                                        </div>
                         
-                       <br><a  href=\"main.php\"><button type=\"button\" class=\"btn btn-danger\">Cancel</button></a>  <input  type=\"submit\"class=\"btn btn-primary\" value=\"Submit\" name=\"submit\" > 
-                        
+                                    <br>
+                                   
+                                  </li>
+
         </form>
+        
+        
+        
+        
 ";
 
                             if(!empty($live_feed->get_all_comments())){
                                 echo "</ul>";
                             }
                             echo" </div>
-                  </div></li>";
+                  </div>";
 
 
 
