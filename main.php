@@ -15,6 +15,14 @@ if (!$session->is_logged_in()) {
 <?php echo output_message($session->get_message(), $session->get_alert_type());
 $picture_id = User::get_picture_id($session->userid);
 
+
+
+
+
+
+
+
+
 ?>
     <img
             src="https://www.dunmore.com/dunDifference/bus_unit_picture/logo.png"/>
@@ -39,7 +47,7 @@ $picture_id = User::get_picture_id($session->userid);
                             echo "
                 <li class=\"tu b ahx\">
                   <div class=\"tv\">
-                    <img class=\"round\" src=\"pictures/". $picture."\" align='left'/>
+                    <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:100px; width: 100px;\"/>
                      <div class=\"bqm\">
                       <div class=\"bqk\">
                          <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2>
@@ -91,9 +99,17 @@ $picture_id = User::get_picture_id($session->userid);
 
                             }
 
-                            echo"<form method=\"POST\" action=\"recognize.php\">
+                            echo"<form id='commentForm' method=\"POST\" action=\"postComment.php\">
+
+
+
+                                <input type = \"hidden\" id=\"appId\" name = \"appId\" value = ".$live_feed->id." />
+                                <input type = \"hidden\" id =\"userId\" name = \"userId\" value = ". $session->userid. " />
+                                <input type = \"hidden\" id=\"date\" name = \"date\" value =".date("y/m/d")." />
                                    <li class=\"tu b ahx\">
                                     <div class=\"form-group\">
+                                    
+                                    
                                         <div style=\"position:absolute;\">
                                           <div style=\"float: left;\">
                                             <img width='35px' height='35px' src=\"pictures/" . $picture_id . "\" style=\"alignment:left;\">
@@ -140,3 +156,37 @@ $picture_id = User::get_picture_id($session->userid);
     </div>
         </body>
 <?php include("layouts/footer.php"); ?>
+
+<script type="text/JavaScript">
+
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+
+            // e.preventDefault();
+
+            var $thisButton = $(this);
+
+            var values = {};
+            values['appId'] =$thisButton[0][0].value;
+            values['userId'] =$thisButton[0][1].value;
+            values['date'] = $thisButton[0][2].value;
+            values['comment'] = $thisButton[0][3].value;
+
+            console.log(values);
+
+                // $.ajax({
+                //     type:'POST',
+                //     url: "main.php",
+                //     data:values,
+                //
+                //     success: function (i) {
+                //
+                //
+                //     }
+                // });
+
+        });
+    });
+
+
+</script>

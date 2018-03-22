@@ -32,7 +32,28 @@ class Comment{
         }
     }
 
+    public function create() {
+        global $database;
+        $sql = "INSERT INTO comments ( appreciationId, user, commentText, date) VALUES ('";
+        $sql .= $database->escape_value($this->appreciationId)."', '";
+        $sql .= $database->escape_value($this->user)."', '";
+        $sql .= $database->escape_value($this->commentText)."', '";
+        $sql .= $database->escape_value($this->date)."')";
+        if ($database->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+
+    public function getLastID(){
+        global $database;
+        $sql = "SELECT MAX(id) FROM comments";
+        $result = $database->query($sql);
+        $row = $database->fetch_array($result);
+        return $row["MAX(id)"];
+    }
 
 
 

@@ -341,6 +341,8 @@ class Appreciation {
         }
     }
 
+
+    //TODO Account for deleted categories
     public function get_all_comments(){
         global $database;
         $commentArray=[];
