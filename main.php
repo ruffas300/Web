@@ -115,7 +115,7 @@ $picture_id = User::get_picture_id($session->userid);
                                             <img width='35px' height='35px' src=\"pictures/" . $picture_id . "\" style=\"alignment:left;\">
                                                 <div style='float: right'>
                                                   <textarea class=\"form-control\" id=\"comment\" name=\"comment\" rows=\"1\" cols=\"55\" required style='alignment: left'></textarea>
-                                                        <input  type=\"submit\"class=\"btn btn-primary\" id=\"commentSubmit\"value=\"Submit\" name=\"submit\"  style='alignment: right'/>
+                                                        <input  type=\"submit\"class=\"btn btn-primary\" id=\"commentSubmit\"value=\"Submit\" name=\"submit\"  style='alignment: right; display: none;'/>
                                                 </div>
                                           </div>
                                         </div>
@@ -160,32 +160,33 @@ $picture_id = User::get_picture_id($session->userid);
 <script type="text/JavaScript">
 
     $(document).ready(function () {
-        $('form').submit(function (e) {
 
-            // e.preventDefault();
+        $('form').click(function() {
+            console.log( $(this).closest('form').find('input'));
 
-            var $thisButton = $(this);
-
-            var values = {};
-            values['appId'] =$thisButton[0][0].value;
-            values['userId'] =$thisButton[0][1].value;
-            values['date'] = $thisButton[0][2].value;
-            values['comment'] = $thisButton[0][3].value;
-
-            console.log(values);
-
-                // $.ajax({
-                //     type:'POST',
-                //     url: "main.php",
-                //     data:values,
-                //
-                //     success: function (i) {
-                //
-                //
-                //     }
-                // });
+            $(this).closest('form').find('input').hide();
 
         });
+
+
+        $('form textarea').on('keyup',function() {
+
+            if(this.value.length) {
+                $(this).closest('form').find('input').show();
+            }else{
+                $(this).closest('form').find('input').hide();
+
+            }
+        });
+
+
+
+        $('input').click(function (e) {
+            console.log($(this));
+        });
+
+
+       
     });
 
 
