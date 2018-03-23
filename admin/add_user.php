@@ -1,5 +1,7 @@
 <?php
 require_once("../includes/initialize.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 //verify user is logged in
 if (!$session->is_logged_in()) {
@@ -43,7 +45,7 @@ if (isset($_POST['submit'])) {
         $user_config = new User_Configuration;
         $user_config->user_id = $user->id;
         $user_config->create();
-        
+
         $role = new Role;
         $role->user_id = $user->id;
         $role->role_id = $database->escape_value($_POST['role_id']);
@@ -98,8 +100,8 @@ if (isset($_POST['submit'])) {
     <div class="form-group">
     <label for="business_unit_id">Business Unit</label>
         <select class="form-control" id="business_unit_id" name="business_unit_id">
-            <?php 
-            $sql = "SELECT * FROM business_unit WHERE status_id=1 ORDER BY business_unit_name"; 
+            <?php
+            $sql = "SELECT * FROM business_unit WHERE status_id=1 ORDER BY business_unit_name";
             $query = $database->query($sql);
             while($row = $database->fetch_array($query)) {
                 $value = $row['id'];
@@ -112,8 +114,8 @@ if (isset($_POST['submit'])) {
     <div class="form-group">
     <label for="department_id">Department</label>
         <select class="form-control" id="department_id" name="department_id">
-            <?php 
-            $sql = "SELECT * FROM department WHERE status_id=1 ORDER BY department_name"; 
+            <?php
+            $sql = "SELECT * FROM department WHERE status_id=1 ORDER BY department_name";
             $query = $database->query($sql);
             while($row = $database->fetch_array($query)) {
                 $value = $row['id'];
@@ -128,7 +130,7 @@ if (isset($_POST['submit'])) {
         <select class="form-control" id="manager_id" name="manager_id">
             <option value="0">No One</option>
             <?php
-            $sql = "SELECT * FROM user ORDER BY last_name"; 
+            $sql = "SELECT * FROM user ORDER BY last_name";
             $query = $database->query($sql);
             while($row = $database->fetch_array($query)) {
                 $value = $row['id'];
@@ -141,8 +143,8 @@ if (isset($_POST['submit'])) {
     <div class="form-group">
     <label for="role_id">Role</label>
         <select class="form-control" id="role_id" name="role_id">
-            <?php 
-            $sql = "SELECT * FROM roles"; 
+            <?php
+            $sql = "SELECT * FROM roles";
             $query = $database->query($sql);
             while($row = $database->fetch_array($query)) {
                 $value = $row['role_id'];

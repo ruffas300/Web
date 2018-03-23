@@ -175,7 +175,7 @@ class User {
         $sql .= ") VALUES ('";
         $sql .= join("', '", array_values($attributes));
         $sql .= "')";
-        
+
         if ($database->query($sql)) {
             $this->id = $database->insert_id();
             $sqlhx = "INSERT INTO user_history (user_id, business_unit_id, department_id, manager_id) VALUES (";
@@ -287,11 +287,12 @@ class User {
     }
     
     public static function does_username_exist($new_username) {
-        //returns whether a username is already actice in the database
+        //returns whether a username is already active in the database
         global $database;
-        $sql = "SELECT username FROM user WHERE username=";
+        $sql = "SELECT username FROM user WHERE username='";
         $sql .= strtolower($database->escape_value($new_username));
-        $sql .= "'";
+        $sql .= "';";
+
         $result = $database->query($sql);
 
         if ($database->num_rows($result) > 0) {

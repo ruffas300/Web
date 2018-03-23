@@ -55,17 +55,17 @@ $picture_id = User::get_picture_id($session->userid);
                       
                       
                      
-                       <p>
+                       <p style='margin-left: 12%'>
                         " . $live_feed->description . "
                       </p>";
 
                             $allCategorited =  get_allcategory_Objects($live_feed->id);
                             foreach ( $allCategorited  as $cat) {
 
-                                echo "<button class='btn-default btn-xs'>$cat->category_name &nbsp</button>";
+                                echo "<button class='btn-default btn-xs' style='margin-left: 12%'>$cat->category_name &nbsp</button>";
                             }
 
-                            echo "<p></p><br><small class=\"\" >". date('m/d/Y g:i a', strtotime($live_feed->date_approved)) . "</small class=\"aec axr\" ><br>";
+                            echo "<p></p><br><small class=\"\" style=\"margin-left: 12%\" >". date('m/d/Y g:i a', strtotime($live_feed->date_approved)) . "</small class=\"aec axr\" ><br>";
 
                             if(!empty($live_feed->get_all_comments())){
                                 echo "<ul>";
@@ -82,7 +82,7 @@ $picture_id = User::get_picture_id($session->userid);
                                 //html for said comments
                                 echo "
                                     
-                                    <li class=\"tu b ahx\" style='margin-left: 100px'>
+                                    <li class=\"tu b ahx\" style='margin-left: 9%'>
                                     <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\"><span>&nbsp</span>
                                         ". $commentor. ": " . $commentText ."
                                         <br>$commentDate</br>
@@ -99,7 +99,7 @@ $picture_id = User::get_picture_id($session->userid);
                                 <input type = \"hidden\" id=\"appId\" name = \"appId\" value = ".$live_feed->id." />
                                 <input type = \"hidden\" id =\"userId\" name = \"userId\" value = ". $session->userid. " />
                                 <input type = \"hidden\" id=\"date\" name = \"date\" value =".date("y/m/d")." />
-                                   <li class=\"tu b ahx\" style='margin-left: 100px'>
+                                   <li class=\"tu b ahx\" style='margin-left: 9%'>
                                     <div class=\"form-group\">
                                     
                                     
@@ -166,12 +166,12 @@ $picture_id = User::get_picture_id($session->userid);
 
             if(this.value.length) {
                 $(this).closest('form').find('input').show();
-                $(this).closest('li').attr({style: 'height: 105px'});
+                $(this).closest('li').attr({style: 'height: 105px; margin-left: 9%;'});
 
 
             }else{
                 $(this).closest('form').find('input').hide();
-                $(this).closest('li').attr({style: 'height: 60px'});
+                $(this).closest('li').attr({style: 'height: 60px; margin-left: 9%; '});
 
 
             }
