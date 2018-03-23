@@ -197,7 +197,7 @@ class User {
     public static function update_username($username, $id) {
         //updated the username only
         global $database;
-        $sql = "UPDATE user SET username = '".strtolower($database->escape_value($username));
+        $sql = "UPDATE user SET username = ".strtolower($database->escape_value($username));
         $sql .= "' WHERE id=".$database->escape_value($id);
         if ($database->query($sql)) {
             return true;
@@ -209,7 +209,7 @@ class User {
     public static function update_password($password, $id) {
         //updated the password only
         global $database;
-        $sql = "UPDATE user SET password = '".$password;
+        $sql = "UPDATE user SET password = ".$password;
         $sql .= "' WHERE id=".$database->escape_value($id);
         if ($database->query($sql)) {
             return true;
@@ -289,7 +289,7 @@ class User {
     public static function does_username_exist($new_username) {
         //returns whether a username is already actice in the database
         global $database;
-        $sql = "SELECT username FROM user WHERE username='";
+        $sql = "SELECT username FROM user WHERE username=";
         $sql .= strtolower($database->escape_value($new_username));
         $sql .= "'";
         $result = $database->query($sql);

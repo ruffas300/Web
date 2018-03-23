@@ -72,7 +72,7 @@ $users = User::find_all();
 
 <script>
     $('#confirm-delete').on('show.bs.modal', function(e) {
-    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    $(this).find('.btn-danger').attr('href', $(e.relatedTarget).data('href'));
     });
 </script>
 <?php include_layout_template("admin_footer.php"); ?>

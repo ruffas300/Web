@@ -27,8 +27,11 @@ if (!isset($_GET['id'])) {
     $category->is_editable = 0;
     $category->for_self = 0;
     $cat_perm->roleid_permissions = $_POST['perms_role'];
-    $cat_perm->buid_permissions = $_POST['perms_bu'];
-    
+    if(isset($_POST['perms_bu'])){
+        $cat_perm->buid_permissions = $_POST['perms_bu'];
+
+    }
+
     if ($category->update()) {
         if ($cat_perm->update_cat_perms($category->id)) {
             $session->set_message($category->category_name." was successfully saved.", "success");
