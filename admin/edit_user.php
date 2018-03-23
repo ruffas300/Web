@@ -12,6 +12,7 @@ if (!$permissions->permissions['User Management']){
     redirect_to("../main.php");
 }
 
+
 if (!isset($_GET['id'])) {
     $session->set_message("Select a user to edit before proceeding.", "warning");
     redirect_to("user_management.php");
@@ -34,28 +35,30 @@ if (!isset($_GET['id'])) {
     $user->business_unit_id = $database->escape_value($_POST['business_unit_id']);
     $user->department_id = $database->escape_value($_POST['department_id']);
     $user->manager_id = $database->escape_value($_POST['manager_id']);
-    if (!File_Upload::check_upload_error($_FILES['picture_id'])) {
-        $file_extension = File_Upload::get_file_extention($_FILES['picture_id']);
-        $filename_name = $user->first_name.$user->last_name.$user->employee_id.".".$file_extension;
-        $upload_result = File_Upload::upload_pic($_FILES['picture_id'],$filename_name);
-    } else {
+
+//    if (!File_Upload::check_upload_error($_FILES['picture_id'])) {
+//        $file_extension = File_Upload::get_file_extention($_FILES['picture_id']);
+//        $filename_name = $user->first_name.$user->last_name.$user->employee_id.".".$file_extension;
+//        $upload_result = File_Upload::upload_pic($_FILES['picture_id'],$filename_name);
+//    } else {
         $filename_name = $user->picture_id;
-    }
-    $user->picture_id = $filename_name;
-    $user->status_id = $database->escape_value($_POST['status_id']);
+//    }
+//    $user->picture_id = $filename_name;
+
+//    $user->status_id = $database->escape_value($_POST['status_id']);
 
     if ($user->update()) {
         $role = new Role;
         $role->user_id = $user->id;
         $role->role_id = $database->escape_value($_POST['role_id']);
         if ($role->update_user()) {
-            $session->set_message($user->full_name()." was successfully saved.".$upload_result, "success");
+            $session->set_message($user->full_name()." was successfully saved.", "success");
             redirect_to("user_management.php");
         } else {
             echo output_message("An error has occured adding the user role to the database.", "danger");
         }
     } else {
-        echo output_message("An error has occured adding the user to the database.", "danger"); 
+        echo output_message("An error has occured adding the user to the database.", "danger");
     }
 } else {
     $user = User::find_by_id($_GET['id']);
@@ -158,20 +161,7 @@ if (!isset($_GET['id'])) {
             ?>
         </select>
     </div>
-    <form enctype="multipart/form-data" action="__URL__" method="POST">
-        <!-- MAX_FILE_SIZE must precede the file input field -->
-        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-        <!-- Name of input element determines name in $_FILES array -->
-        Send this file: <input name="userfile" type="file" />
-        <input type="submit" value="Send File" />
-    </form>
-    <div class="form-group">
-    <label for="status_id">Status</label>
-            <select class="form-control" id="status_id" name="status_id">
-                <option value="1" <?php if ($user->status_id == 1) { echo "selected"; } ?>>Active</option>
-                <option value="2" <?php if ($user->status_id == 2) { echo "selected"; } ?>>Inactive</option>
-            </select>
-    </div>
+
     <br><a href="user_management.php"><button type="button" class="btn btn-danger">Cancel</button></a>  <input type="submit" class="btn btn-primary" value="Submit" name="submit">
 </form>
 

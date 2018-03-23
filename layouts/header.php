@@ -120,7 +120,7 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
 <!--            </li>-->
 <!--            --><?php //} ?>
             <?php
-            if ($permissions->permissions['Admin Menu']){ ?>
+            if ($permissions->has_perm('Admin Menu')){ ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
               <ul class="dropdown-menu">

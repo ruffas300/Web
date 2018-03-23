@@ -12,7 +12,7 @@
         <div class="bqr agk">
           <div class="rv" style="background-image: url(<?php echo "bus_unit_picture/".$bu_picture; ?>);"></div>
           <div class="rq awx">
-          <img src="pictures/<?php echo $picture_id; ?>"  class="round">
+          <img src="pictures/<?php echo $picture_id; ?>"  class="circle">
 
               <p>Total number of recognition given and received year to date:</p>
           <ul class="bqt">
@@ -31,14 +31,14 @@
  <!-- <div class="rp brb brc agk">  -->
       <div class="brb brc agk">
         <div class="rq">
-          <h4 class="agd">My last 5 recognition:</h4>
+          <h4 class="agd">My last 5 recognitions:</h4>
           <ul class="dc ayo">
 
             <?php foreach($left_stats[2] as $last_five) {
               $giver = get_full_name($last_five->giver_id);
 //              $category = get_category_name($last_five->category_id);
               $date = date('m/d/Y', strtotime($last_five->date_approved));
-              echo "<li><strong>{$category}</strong> from {$giver} on {$date}</li>";
+              echo "<li>from {$giver} on {$date}</li>";
             }
             ?>
           </ul>

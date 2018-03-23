@@ -1,5 +1,8 @@
 <?php
 require_once ('categoryObject.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 function redirect_to($new_location) {
     header ("Location: " . $new_location);
     exit;
@@ -51,27 +54,25 @@ function get_category_name($id) {
 }
 
 function get_allcategory_names($id) {
-    //return category
+
     global $database;
-    $allCategoriesByName ="";
+    $allCategoriesByName =" ";
+    $id = rtrim($id,",");
+    $allIdsAsArray = explode(",",$id);
 
-
-    $result = $database->query("SELECT category_id FROM appreciation WHERE id={$id} LIMIT 1");
-    $row = $database->fetch_array($result);
-    $allIds = $row['category_id'];
-    $allIdsAsArray = explode(",",$allIds);
 
     foreach ($allIdsAsArray as $catId) {
         $int = (int)$catId;
         $nameResult = $database->query("SELECT * FROM category WHERE id={$int}");
         $nameRow = $database->fetch_array($nameResult);
 
-        if ($catId === end($allIdsAsArray)) {
+        if ($catId !== end($allIdsAsArray)) {
+            $allCategoriesByName .= $nameRow['category_name'].", ";
 
-            $allCategoriesByName .= $nameRow['category_name'];
 
         }else{
-            $allCategoriesByName .= $nameRow['category_name'].",";
+            $allCategoriesByName .= $nameRow['category_name'];
+
 
         }
 

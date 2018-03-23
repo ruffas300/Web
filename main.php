@@ -16,16 +16,9 @@ if (!$session->is_logged_in()) {
 $picture_id = User::get_picture_id($session->userid);
 
 
-
-
-
-
-
-
-
 ?>
     <img
-            src="https://www.dunmore.com/dunDifference/bus_unit_picture/logo.png"/>
+            src="bus_unit_picture/logo.png"/>
     <div class="container-fluid">
         <div class="row">
             <!-- left sidebar column -->
@@ -186,7 +179,7 @@ $picture_id = User::get_picture_id($session->userid);
         });
 
 
-       
+
     });
 
 

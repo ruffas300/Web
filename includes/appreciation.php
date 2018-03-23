@@ -212,6 +212,7 @@ class Appreciation {
         $catResult = $database->query("SELECT category_id FROM appreciation WHERE id={$app_id}");
         $catRow = $database->fetch_array($catResult);
         $allIds = $catRow['category_id'];
+        $allIds = rtrim($allIds,",");
         $allIdsAsArray = explode(",", $allIds);
 
         foreach ($allIdsAsArray as $thisOne) {

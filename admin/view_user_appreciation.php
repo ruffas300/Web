@@ -1,5 +1,8 @@
 <?php
 require_once("../includes/initialize.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 
 //verify user is logged in
 if (!$session->is_logged_in()) {
@@ -70,7 +73,7 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE rec
                 <tr>
                     <td><?php echo get_full_name($appreciation->giver_id); ?></td>
                     <td><?php echo $appreciation->date_given; ?></td>
-                    <td><?php echo get_category_name($appreciation->category_id); ?></td>
+                    <td><?php echo get_allcategory_names($appreciation->category_id); ?></td>
                     <td><?php echo $appreciation->description; ?></td>
                     <td><?php echo $appreciation->point_value; ?></td>
                     <td><?php echo get_status_name($appreciation->status_id); ?></td>

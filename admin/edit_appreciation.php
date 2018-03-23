@@ -18,21 +18,39 @@ if (!isset($_GET['id'])) {
 } elseif (isset($_POST['submit'])) {
     //pull all the values from the form
     $appreciation = Appreciation::find_by_id($_GET['id']);
-    
-    $category_points = $database->escape_value($_POST['category_points']);
-    $explode_category_points = explode('|', $category_points);
+
+    if(isset($_POST['category_points'])){
+        $category_points = $database->escape_value($_POST['category_points']);
+        $explode_category_points = explode('|', $category_points);
+    }else{
+        $explode_category_points = [];
+    }
+
+
+    $categoryList= "";
+    foreach($_POST['category_id'] as $cat_id){
+        $categoryList .= $cat_id.",";
+    }
+    $appreciation->category_id = $categoryList;
 
     $appreciation->last_edited_by_id = $session->userid;
-    $appreciation->category_id = $explode_category_points[0];
     $appreciation->description = $database->escape_value($_POST['description']);
-    if ($_POST['give_points'] == 1) {
+    if (isset($_POST['give_points']) && $_POST['give_points'] == 1) {
         $appreciation->point_value = $explode_category_points[1];
         $appreciation->paid_out = 0;
     } else {
         $appreciation->point_value = 0;
         $appreciation->paid_out = 1;
     }
-    $appreciation->is_public = $database->escape_value($_POST['is_public']);
+
+    if(isset($_POST['is_public'])) {
+        $appreciation->is_public = $database->escape_value($_POST['is_public']);
+        $appreciation->status_id = 3;
+    }else{
+        $appreciation->status_id = 3;
+        $appreciation->is_public = 1;
+    }
+
     
     if ($_POST['status_id'] == 3) {
         //update and close
@@ -114,44 +132,29 @@ if (!isset($_GET['id'])) {
                 </script>
         </div>
         <div class="form-group">
-        <label for="category_points">Choose a Category:</label>
-            <select class="form-control" id="category_points" name="category_points" required>
-                <?php 
-                $sql = "SELECT * FROM category WHERE status_id=1 ORDER BY category_name"; 
+            <label for="category_id">Choose Categories:</label>
+            <select id="category_id" name="category_id[]" multiple class="form-control" placeholder="Start typing to select a category..." required>
+                <option value="">Select a category...</option>
+                <?php
+                $sql = "SELECT * FROM category WHERE status_id=1 ORDER BY category_name";
                 $query = $database->query($sql);
                 while($row = $database->fetch_array($query)) {
-                    $value = $row['id'];
-                    $name = $row['category_name'];
-                    $points = $row['category_value'];
-                    echo "<option value=\"".$value."|".$points."\"";
-                    if ($row['id'] == $appreciation->category_id) { echo "selected"; }
-                    echo ">".$name." | ".$points." points</option>";
+                    $category_id = $row['id'];
+                    $category_name = $row['category_name'];
+                    echo "<option value=\"".$category_id."\">".$category_name."</option>";
                 }
                 ?>
             </select>
-        </div>
-        <div class="form-group">
-            <label for="value">Do you want to give for points?</label><br>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary <?php if ($appreciation->point_value != 0) { echo "active"; } ?>">
-                    <input type="radio" name="give_points" id="give_points" value="1" autocomplete="off" <?php if ($appreciation->point_value != 0) { echo "checked"; } ?>> Yes
-                </label>
-                <label class="btn btn-primary <?php if ($appreciation->point_value == 0) { echo "active"; } ?>">
-                    <input type="radio" name="give_points" id="give_points" value="0" autocomplete="off" <?php if ($appreciation->point_value == 0) { echo "checked"; } ?>> No
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="is_public">Do you want this to be public or private?</label><br>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary <?php if ($appreciation->is_public != 0) { echo "active"; } ?>">
-                    <input type="radio" name="is_public" id="is_public" value="1" autocomplete="off" <?php if ($appreciation->is_public != 0) { echo "checked"; } ?>> Yes
-                </label>
-                <label class="btn btn-primary <?php if ($appreciation->is_public == 0) { echo "active"; } ?>">
-                    <input type="radio" name="is_public" id="is_public" value="0" autocomplete="off" <?php if ($appreciation->is_public == 0) { echo "checked"; } ?>> No
-                </label>
-            </div>
-        </div>
+
+            <script>
+                $('#category_id').selectize({
+                    plugins: ['remove_button'],
+                    delimiter: ',',
+                    persist: false
+                });
+            </script>
+
+
         <div class="form-group">
             <label for="description">What do you want to say?</label>
             <textarea class="form-control" id="description" name="description" rows="5" cols="40" required><?php echo $appreciation->description; ?></textarea>

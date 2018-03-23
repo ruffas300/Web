@@ -13,11 +13,15 @@ class Role_Perm {
         global $database;
         $role = new Role_Perm();
         $sql = "SELECT t2.perm_name FROM role_perm AS t1 JOIN permissions AS t2 ON t1.perm_id = t2.perm_id WHERE t1.role_id = {$role_id}";
-        $results = $database->query($sql);
-        while ($row = $database->fetch_array($results)) {
-            $role->permissions[$row["perm_name"]] = true;
+        if($results = $database->query($sql)) {
+            while ($row = $database->fetch_array($results)) {
+                $role->permissions[$row["perm_name"]] = true;
+            }
+            return $role;
+
+        }else{
+            return null;
         }
-        return $role;
     }
     
     public function add_perms($role_id) {

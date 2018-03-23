@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
         if ($_GET['type'] === 'a') {
             //approve
             if (Appreciation::process_appreciation($_GET['id'], $session->userid, 4)) {
-//                Appreciation::process_app_email($_GET['id']);
+                Appreciation::process_app_email($_GET['id']);
                 $session->set_message("Appreciation was approved.", "success");
                 redirect_to("approval_management.php");
             } else {
