@@ -64,9 +64,9 @@ body {
 .bqr .rr {
   margin-bottom: 5px; }
 
-.bqr .rv {
-  height: 150px;
-  background-size: cover; }
+/*.bqr .rv {*/
+  /*height: 150px;*/
+  /*background-size: cover; }*/
   
 .agk {
   margin-bottom: 1.5rem !important; }
@@ -78,6 +78,21 @@ body {
   border: 3px solid #fff;
   border-radius: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
+
+.circlePicture {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  border: 5px solid #eee;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
 
 .circle {
   display: block;
