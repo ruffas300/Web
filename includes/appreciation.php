@@ -215,13 +215,13 @@ class Appreciation {
         $allIds = rtrim($allIds,",");
         $allIdsAsArray = explode(",", $allIds);
 
-        foreach ($allIdsAsArray as $thisOne) {
+//        foreach ($allIdsAsArray as $thisOne) {
 
             $sql_self = "SELECT for_self FROM category WHERE id = {$thisOne}";
             $result_self = $database->query($sql_self);
             $row_self = $database->fetch_array($result_self);
             //array of information for emails
-            $mail_info = array($row['first_name'], $row['last_name'], $row['email_address'], $row_give['first_name'], $row_give['last_name'], $row_give['email_address'], $category, $appreciation->description, $appreciation->point_value, $manager_info->first_name, $manager_info->last_name, $manager_info->email_address);
+            $mail_info = array($row['first_name'], $row['last_name'], $row['email_address'], $row_give['first_name'], $row_give['last_name'], $row_give['email_address'], get_allcategory_names($appreciation->id), $appreciation->description, $appreciation->point_value, $manager_info->first_name, $manager_info->last_name, $manager_info->email_address);
             //check to see if the receiver wants an email, if so, send
             if ($rec_config->rec_self == 1 && $row_self['for_self'] == 0) {
                 $send_mail = new Send_Mail;
@@ -242,7 +242,7 @@ class Appreciation {
                 $send_mail_manager->appreciation_approved_manager($mail_info);
             }
         }
-    }
+//    }
 
     
     public static function process_deny_email ($app_id) {

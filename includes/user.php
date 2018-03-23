@@ -229,11 +229,9 @@ class User {
         $sql .= "', hire_date = '".$database->escape_value($this->hire_date);
         $sql .= "', employee_id = '".$database->escape_value($this->employee_id);
         $sql .= "', email_address = '".$database->escape_value($this->email_address);
-        $sql .= "', business_unit_id = '".$database->escape_value($this->business_unit_id);
         $sql .= "', department_id = '".$database->escape_value($this->department_id);
         $sql .= "', manager_id = '".$database->escape_value($this->manager_id);
         $sql .= "', status_id = '".$database->escape_value($this->status_id);
-        $sql .= "', picture_id = '".$database->escape_value($this->picture_id);
         $sql .= "' WHERE id=".$database->escape_value($this->id);
         
         $sqlhx = "INSERT INTO user_history (user_id, business_unit_id, department_id, manager_id) VALUES (";
