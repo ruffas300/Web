@@ -24,7 +24,7 @@ $picture_id = User::get_picture_id($session->userid);
             <!-- left sidebar column -->
 <!--            --><?php //include("layouts/user_sidebar.php"); ?>
             <!-- right main column -->
-            <div class="col-md-6">
+            <div class="col-lg-12">
                 <div class="fk">
 
                     <ul class="ca bqf bqg agk">
@@ -38,7 +38,7 @@ $picture_id = User::get_picture_id($session->userid);
                             $category = get_allcategory_names($live_feed->id);
                             $picture = User::get_picture_id($live_feed->receiver_id);
                             echo "
-                <li class=\"tu b ahx\">
+                <li class=\"\" style='width: 90%' >
                   <div class=\"tv\">
                     <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:100px; width: 100px;\"/>
                      <div class=\"bqm\">
@@ -62,10 +62,10 @@ $picture_id = User::get_picture_id($session->userid);
                             $allCategorited =  get_allcategory_Objects($live_feed->id);
                             foreach ( $allCategorited  as $cat) {
 
-                                echo "<button>$cat->category_name &nbsp</button>";
+                                echo "<button class='btn-default btn-xs'>$cat->category_name &nbsp</button>";
                             }
 
-                            echo "<br><small class=\"aec axr\">". date('m/d/Y g:i a', strtotime($live_feed->date_approved)) . "</small class=\"aec axr\"><br>";
+                            echo "<p></p><br><small class=\"\" >". date('m/d/Y g:i a', strtotime($live_feed->date_approved)) . "</small class=\"aec axr\" ><br>";
 
                             if(!empty($live_feed->get_all_comments())){
                                 echo "<ul>";
@@ -82,7 +82,7 @@ $picture_id = User::get_picture_id($session->userid);
                                 //html for said comments
                                 echo "
                                     
-                                    <li class=\"tu b ahx\">
+                                    <li class=\"tu b ahx\" style='margin-left: 100px'>
                                     <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\"><span>&nbsp</span>
                                         ". $commentor. ": " . $commentText ."
                                         <br>$commentDate</br>
@@ -99,7 +99,7 @@ $picture_id = User::get_picture_id($session->userid);
                                 <input type = \"hidden\" id=\"appId\" name = \"appId\" value = ".$live_feed->id." />
                                 <input type = \"hidden\" id =\"userId\" name = \"userId\" value = ". $session->userid. " />
                                 <input type = \"hidden\" id=\"date\" name = \"date\" value =".date("y/m/d")." />
-                                   <li class=\"tu b ahx\">
+                                   <li class=\"tu b ahx\" style='margin-left: 100px'>
                                     <div class=\"form-group\">
                                     
                                     
@@ -142,7 +142,7 @@ $picture_id = User::get_picture_id($session->userid);
             </div>
 
             <div class="col-md-3">
-                <?php include("layouts/user_sidebar_right.php"); ?>
+<!--                --><?php //include("layouts/user_sidebar_right.php"); ?>
             </div>
 
         </div>
@@ -166,8 +166,13 @@ $picture_id = User::get_picture_id($session->userid);
 
             if(this.value.length) {
                 $(this).closest('form').find('input').show();
+                $(this).closest('li').attr({style: 'height: 105px'});
+
+
             }else{
                 $(this).closest('form').find('input').hide();
+                $(this).closest('li').attr({style: 'height: 60px'});
+
 
             }
         });
