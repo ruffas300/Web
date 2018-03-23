@@ -2,7 +2,8 @@
 require_once("database.php");
 require_once("send_mail.php");
 require_once("Comment.php");
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 class Appreciation {
     public $id;
@@ -186,15 +187,21 @@ class Appreciation {
     {
         global $database;
         //get rec information
+
+        $appSql = "SELECT * FROM appreciation WHERE id ={$app_id}";
+        $appResult = $database->query($appSql);
+        $appRow = $database->fetch_array($appResult);
+
+
         $sql = "SELECT id, first_name, last_name, email_address, manager_id FROM user WHERE id = (SELECT receiver_id FROM appreciation WHERE id={$app_id})";
         $result = $database->query($sql);
         $row = $database->fetch_array($result);
-        global $row;
         $rec_config = User_Configuration::find_by_userid($row['id']);
         //get sender information
         $sql_give = "SELECT id, first_name, last_name, email_address FROM user WHERE id = (SELECT giver_id FROM appreciation WHERE id={$app_id})";
         $result_give = $database->query($sql_give);
         $row_give = $database->fetch_array($result_give);
+
         $give_config = User_Configuration::find_by_userid($row_give['id']);
         //check if user has manager, get manager configuration information, else zero
         if ($row['manager_id'] != 0) {
@@ -202,10 +209,11 @@ class Appreciation {
             $manager_info = User::find_by_id($row['manager_id']);
         } else {
             $manager_config = 0;
+            $manager_info = "";
         }
         //get appreciation information
         $appreciation = Appreciation::find_by_id($app_id);
-        $category = get_allcategory_names($app_id);
+        $category = get_allcategory_names($appRow["category_id"]);
         //check if for self
 
 
@@ -215,13 +223,16 @@ class Appreciation {
         $allIds = rtrim($allIds,",");
         $allIdsAsArray = explode(",", $allIds);
 
-//        foreach ($allIdsAsArray as $thisOne) {
 
-            $sql_self = "SELECT for_self FROM category WHERE id = {$thisOne}";
+            $sql_self = "SELECT for_self FROM category WHERE id = {$allIdsAsArray[0]}";
             $result_self = $database->query($sql_self);
             $row_self = $database->fetch_array($result_self);
-            //array of information for emails
-            $mail_info = array($row['first_name'], $row['last_name'], $row['email_address'], $row_give['first_name'], $row_give['last_name'], $row_give['email_address'], get_allcategory_names($appreciation->id), $appreciation->description, $appreciation->point_value, $manager_info->first_name, $manager_info->last_name, $manager_info->email_address);
+
+
+
+
+        //array of information for emails
+            $mail_info = array($row['first_name'], $row['last_name'], $row['email_address'], $row_give['first_name'], $row_give['last_name'], $row_give['email_address'],$category, $appreciation->description, $appreciation->point_value, $manager_info->first_name, $manager_info->last_name, $manager_info->email_address);
             //check to see if the receiver wants an email, if so, send
             if ($rec_config->rec_self == 1 && $row_self['for_self'] == 0) {
                 $send_mail = new Send_Mail;
@@ -241,8 +252,8 @@ class Appreciation {
                 $send_mail_manager = new Send_Mail;
                 $send_mail_manager->appreciation_approved_manager($mail_info);
             }
-        }
-//    }
+
+    }
 
     
     public static function process_deny_email ($app_id) {

@@ -12,7 +12,7 @@
         <div class="bqr agk">
           <div class="rv" style="background-image: url(<?php echo "bus_unit_picture/".$bu_picture; ?>);"></div>
           <div class="rq awx">
-          <img src="pictures/<?php echo $picture_id; ?>"  class="circle">
+          <img src="pictures/<?php echo $picture_id; ?>" class="circle">
 
               <p>Total number of recognition given and received year to date:</p>
           <ul class="bqt">

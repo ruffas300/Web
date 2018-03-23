@@ -29,13 +29,13 @@ if (isset($_POST['submit'])) {
     $user->business_unit_id = $database->escape_value($_POST['business_unit_id']);
     $user->department_id = $database->escape_value($_POST['department_id']);
     $user->manager_id = $database->escape_value($_POST['manager_id']);
-    if (!File_Upload::check_upload_error($_FILES['picture_id'])) {
-        $file_extension = File_Upload::get_file_extention($_FILES['picture_id']);
-        $filename_name = $user->first_name.$user->last_name.$user->employee_id.".".$file_extension;
-        $upload_result = File_Upload::upload_pic($_FILES['picture_id'],$filename_name);
-    } else {
+//    if (!File_Upload::check_upload_error($_FILES['picture_id'])) {
+//        $file_extension = File_Upload::get_file_extention($_FILES['picture_id']);
+//        $filename_name = $user->first_name.$user->last_name.$user->employee_id.".".$file_extension;
+//        $upload_result = File_Upload::upload_pic($_FILES['picture_id'],$filename_name);
+//    } else {
         $filename_name = "default.png";
-    }
+//    }
     $user->picture_id = $filename_name;
     $user->status_id = $database->escape_value($_POST['status_id']);
 
@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
         $role->role_id = $database->escape_value($_POST['role_id']);
 
         if ($role->add_user()) {
-            $session->set_message($user->full_name()." was successfully saved.".$upload_result, "success");
+            $session->set_message($user->full_name()." was successfully saved", "success");
             redirect_to("user_management.php");
         } else {
             echo output_message("An error has occured adding the user role to the database.", "danger");
@@ -152,14 +152,14 @@ if (isset($_POST['submit'])) {
             ?>
         </select>
     </div>
-    <div class="form-group">
-    <label for="file_upload">Picture</label><br>
-    <label class="btn btn-primary" for="picture_id">
-        <input id="picture_id" name="picture_id" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
-        Browse
-    </label>
-    <span class='label label-info' id="upload-file-info"></span>
-    </div>
+<!--    <div class="form-group">-->
+<!--    <label for="file_upload">Picture</label><br>-->
+<!--    <label class="btn btn-primary" for="picture_id">-->
+<!--        <input id="picture_id" name="picture_id" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">-->
+<!--        Browse-->
+<!--    </label>-->
+<!--    <span class='label label-info' id="upload-file-info"></span>-->
+<!--    </div>-->
     <div class="form-group">
     <label for="status_id">Status</label>
         <select class="form-control" id="status_id" name="status_id">

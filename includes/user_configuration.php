@@ -20,14 +20,16 @@ class User_Configuration {
         return !empty($result_array) ? array_shift($result_array) : false;
     }
     
-    public static function find_by_userid($userid=0) {
+    public static function find_by_userid($userid) {
         global $database;
         $sql = "SELECT * FROM user_configuration WHERE user_id={$userid} LIMIT 1";
         $result_set = $database->query($sql);
         $object_array = array();
+
         while ($row = $database->fetch_array($result_set)) {
             $object_array[] = static::instantiate($row);
         }
+
         return !empty($object_array) ? array_shift($object_array) : false;
     }
     
