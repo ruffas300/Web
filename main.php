@@ -39,37 +39,41 @@ $picture_id = User::get_picture_id($session->userid);
                             $picture = User::get_picture_id($live_feed->receiver_id);
                             echo "
                 <li class=\"\" style='width: 90%' >
+                 <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:85px; width: 85px;\"/>
+               
                   <div class=\"tv\">
-                    <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:100px; width: 100px;\"/>
                      <div class=\"bqm\">
                       <div class=\"bqk\">
-                         <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2>
+                      <br>
+                         <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
                         " . $live_feed->title . "
                       </h2></a>
                       </h1>
-                        <h4><strong>" . $receiver . "</strong> recognized by <strong>". $giver . "</strong>!</h4>
-                        <p>
+                        <h4 style='font-size: 10'><a style='font-size: 12'>" . $receiver . "</a> recognized by <a style='font-size: 12'>". $giver . "</a>!</h4>
                       </div>
                      
                     
                       
                       
                      
-                       <p style='margin-left: 12%'>
+                       <h5 style=' margin-left: 11%; margin-top: inherit; font-weight:normal; font-size: '>
                         " . $live_feed->description . "
-                      </p>";
+                      </h5><br>";
 
                             $allCategorited =  get_allcategory_Objects($live_feed->id);
                             foreach ( $allCategorited  as $cat) {
 
-                                echo "<button class='btn-default btn-xs' style='margin-left: 12%'>$cat->category_name &nbsp</button>";
+                                if($cat === $allCategorited[0]){
+                                    echo "<button class='btn-default btn-xs' style='margin-left: 11%; color: #2e6da4'>$cat->category_name &nbsp</button>";
+
+                                }else{
+                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4'>$cat->category_name &nbsp</button>";
+
+                                }
                             }
 
-                            echo "<p></p><br><small class=\"\" style=\"margin-left: 12%\" >". date('m/d/Y g:i a', strtotime($live_feed->date_approved)) . "</small class=\"aec axr\" ><br>";
+                            echo "<br><br><small style=\" margin-left: 11%; margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br>";
 
-                            if(!empty($live_feed->get_all_comments())){
-                                echo "<ul>";
-                            }
                             //Comments from this appreciation
                             foreach ($live_feed->get_all_comments() as $comment) {
                                 $commentor = get_full_name($comment->user);
@@ -80,30 +84,30 @@ $picture_id = User::get_picture_id($session->userid);
                                 $commentText = $comment->commentText;
 
                                 //html for said comments
-                                echo "
-                                    
-                                    <li class=\"tu b ahx\" style='margin-left: 9%'>
+                                echo "<li class=\"tu b ahx\" style=' margin-left: 10%; margin-top: inherit'>
                                     <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\"><span>&nbsp</span>
                                         ". $commentor. ": " . $commentText ."
                                         <br>$commentDate</br>
-                                    </li>
-                          ";
+                                    </li>";
 
 
                             }
 
-                            echo"<form id='commentForm' method=\"POST\" action=\"postComment.php\">
+                            echo"
+<li class=\"tu b ahx\" style=' margin-left: 10%; margin-top: inherit; height:60px'>
+<form id='commentForm' method=\"POST\" action=\"postComment.php\">
 
 
 
                                 <input type = \"hidden\" id=\"appId\" name = \"appId\" value = ".$live_feed->id." />
                                 <input type = \"hidden\" id =\"userId\" name = \"userId\" value = ". $session->userid. " />
                                 <input type = \"hidden\" id=\"date\" name = \"date\" value =".date("y/m/d")." />
-                                   <li class=\"tu b ahx\" style='margin-left: 9%'>
+                                   
                                     <div class=\"form-group\">
                                     
                                     
-                                        <div style=\"position:absolute;\">
+                                        <div >
+                                        
                                           <div style=\"float: left;\">
                                             <img width='35px' height='35px' src=\"pictures/" . $picture_id . "\" style=\"alignment:left;\">
                                                 <div style='float: right'>
@@ -113,7 +117,6 @@ $picture_id = User::get_picture_id($session->userid);
                                           </div>
                                         </div>
                         
-                                    <br>
                                    
                                   </li>
 
@@ -124,11 +127,6 @@ $picture_id = User::get_picture_id($session->userid);
         
 ";
 
-                            if(!empty($live_feed->get_all_comments())){
-                                echo "</ul>";
-                            }
-                            echo" </div>
-                  </div>";
 
 
 
@@ -166,12 +164,12 @@ $picture_id = User::get_picture_id($session->userid);
 
             if(this.value.length) {
                 $(this).closest('form').find('input').show();
-                $(this).closest('li').attr({style: 'height: 105px; margin-left: 9%;'});
+                $(this).closest('li').attr({style:'margin-left: 10%; margin-top: inherit; height: 90px'});
 
 
             }else{
                 $(this).closest('form').find('input').hide();
-                $(this).closest('li').attr({style: 'height: 60px; margin-left: 9%; '});
+                $(this).closest('li').attr({style:' margin-left: 10%; margin-top: inherit; height: 60px'});
 
 
             }
