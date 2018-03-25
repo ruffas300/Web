@@ -24,7 +24,7 @@ $picture_id = User::get_picture_id($session->userid);
             <!-- left sidebar column -->
 <!--            --><?php //include("layouts/user_sidebar.php"); ?>
             <!-- right main column -->
-            <div class="col-lg-12">
+            <div class="col-lg-9">
                 <div class="fk">
 
                     <ul class="ca bqf bqg agk">
@@ -34,11 +34,12 @@ $picture_id = User::get_picture_id($session->userid);
 
                         foreach ($live_feeds as $live_feed) {
                             $giver = get_full_name($live_feed->giver_id);
+                            //TODO add multiple recievers
                             $receiver = get_full_name($live_feed->receiver_id);
                             $category = get_allcategory_names($live_feed->id);
                             $picture = User::get_picture_id($live_feed->receiver_id);
                             echo "
-                <li class=\"\" style='width: 90%' >
+                <li class=\"\" >
                  <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:85px; width: 85px;\"/>
                
                   <div class=\"tv\">
@@ -49,6 +50,7 @@ $picture_id = User::get_picture_id($session->userid);
                         " . $live_feed->title . "
                       </h2></a>
                       </h1>
+                    
                         <h4 style='font-size: 10'><a style='font-size: 12'>" . $receiver . "</a> recognized by <a style='font-size: 12'>". $giver . "</a>!</h4>
                       </div>
                      
@@ -56,7 +58,7 @@ $picture_id = User::get_picture_id($session->userid);
                       
                       
                      
-                       <h5 style=' margin-left: 11%; margin-top: inherit; font-weight:normal; font-size: '>
+                       <h5 style=' margin-left: 12%; margin-top: inherit; font-weight:normal; font-size: '>
                         " . $live_feed->description . "
                       </h5><br>";
 
@@ -64,15 +66,15 @@ $picture_id = User::get_picture_id($session->userid);
                             foreach ( $allCategorited  as $cat) {
 
                                 if($cat === $allCategorited[0]){
-                                    echo "<button class='btn-default btn-xs' style='margin-left: 11%; color: #2e6da4'>$cat->category_name &nbsp</button>";
+                                    echo "<button class='btn-default btn-xs' style='margin-left: 12%; color: #2e6da4'>$cat->category_name &nbsp</button>";
 
                                 }else{
-                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4'>$cat->category_name &nbsp</button>";
+                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4; margin-left: 2px;'>$cat->category_name &nbsp</button>";
 
                                 }
                             }
 
-                            echo "<br><br><small style=\" margin-left: 11%; margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br>";
+                            echo "<br><small style=\" margin-left: 12%; margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br>";
 
                             //Comments from this appreciation
                             foreach ($live_feed->get_all_comments() as $comment) {
@@ -84,7 +86,7 @@ $picture_id = User::get_picture_id($session->userid);
                                 $commentText = $comment->commentText;
 
                                 //html for said comments
-                                echo "<li class=\"tu b ahx\" style=' margin-left: 10%; margin-top: inherit'>
+                                echo "<li class=\"tu b ahx\" style=' margin-left: 12%; margin-top: inherit'>
                                     <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\"><span>&nbsp</span>
                                         ". $commentor. ": " . $commentText ."
                                         <br>$commentDate</br>
@@ -94,7 +96,7 @@ $picture_id = User::get_picture_id($session->userid);
                             }
 
                             echo"
-<li class=\"tu b ahx\" style=' margin-left: 10%; margin-top: inherit; height:60px'>
+<li class=\"tu b ahx\" style=' margin-left: 12%; margin-top: inherit; height:60px'>
 <form id='commentForm' method=\"POST\" action=\"postComment.php\">
 
 
@@ -164,12 +166,12 @@ $picture_id = User::get_picture_id($session->userid);
 
             if(this.value.length) {
                 $(this).closest('form').find('input').show();
-                $(this).closest('li').attr({style:'margin-left: 10%; margin-top: inherit; height: 90px'});
+                $(this).closest('li').attr({style:'margin-left: 12%; margin-top: inherit; height: 90px'});
 
 
             }else{
                 $(this).closest('form').find('input').hide();
-                $(this).closest('li').attr({style:' margin-left: 10%; margin-top: inherit; height: 60px'});
+                $(this).closest('li').attr({style:' margin-left: 12%; margin-top: inherit; height: 60px'});
 
 
             }

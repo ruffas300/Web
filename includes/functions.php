@@ -170,6 +170,14 @@ function list_permissions() {
     return $result_array;
 }
 
+ function get_picture_id($user_id) {
+    global $database;
+    $sql = "SELECT picture_id FROM user WHERE id={$user_id}";
+    $result = $database->query($sql);
+    $row = $database->fetch_array($result);
+    return $row['picture_id'];
+}
+
 function include_root_layout_template($template="") {
 	include('layouts'.DS.$template);
 }

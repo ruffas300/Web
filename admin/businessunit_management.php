@@ -44,4 +44,5 @@ $business_units = Business_Unit::find_all();
             <?php } ?>
         </tbody>
 </table>
+    </div>
 <?php include_layout_template("admin_footer.php"); ?>

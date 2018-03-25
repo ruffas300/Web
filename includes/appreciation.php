@@ -231,8 +231,13 @@ class Appreciation {
 
 
 
+            //Todo figure out how to email multiple receivers for single appreciation
+        //Hint this will have to change appreciation->reciever_id to text field and need explaode(array, ",");
+        //then loop over those values getting the name for each id and spitting them out on the screen.
+
         //array of information for emails
             $mail_info = array($row['first_name'], $row['last_name'], $row['email_address'], $row_give['first_name'], $row_give['last_name'], $row_give['email_address'],$category, $appreciation->description, $appreciation->point_value, $manager_info->first_name, $manager_info->last_name, $manager_info->email_address);
+
             //check to see if the receiver wants an email, if so, send
             if ($rec_config->rec_self == 1 && $row_self['for_self'] == 0) {
                 $send_mail = new Send_Mail;

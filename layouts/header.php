@@ -137,6 +137,7 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
             ?>
             </li>
             <li class="dropdown">
+
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo get_full_name($session->userid); ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_profile.php';}else{echo 'my_profile.php';}  ?>">My Profile</a></li>

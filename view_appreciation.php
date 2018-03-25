@@ -23,7 +23,8 @@ $appreciation = Appreciation::find_by_id($appreciation_id);
 
 //make sure the logged in user is the owner of the appreciation
 if ($appreciation->receiver_id == $session->userid || $appreciation->giver_id == $session->userid) {
-    echo "<strong>Category:</strong> ".get_category_name($appreciation->category_id)."<br>";
+    echo "<br><br><br><br><br><br>";
+    echo "<strong>Category:</strong> ".get_allcategory_names($appreciation->category_id)."<br>";
     echo "<strong>Point Value:</strong> ".$appreciation->point_value."<br>";
     echo "<strong>Description:</strong> ".$appreciation->description."<br>";
     echo "<strong>Given By:</strong> ".get_full_name($appreciation->giver_id)."<br>";

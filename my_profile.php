@@ -94,11 +94,7 @@ $user = User::find_by_id($session->userid);
                 
                 <li class="tu b ahx">
                 <form method="POST" enctype="multipart/form-data" action="my_profile.php">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?php echo $user->username; ?>" required>
-                        <input type="submit" class="btn btn-primary" value="Save Username" name="submitusername">
-                    </div>
+
                     <div class="form-group">
                         <label for="password">Password</label><br>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">

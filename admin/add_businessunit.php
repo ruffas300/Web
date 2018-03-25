@@ -23,13 +23,15 @@ if (isset($_POST['submit'])) {
         $upload_result = File_Upload::upload_bu_pic($_FILES['picture_id'],$filename_name);
     } else {
         $filename_name = "default.jpg";
+        $upload_result = "";
     }
     $business_unit->picture_id = $filename_name;
     $business_unit->status_id = $database->escape_value($_POST['status_id']);
     
 
     if ($business_unit->create()) {
-        $session->set_message($business_unit->business_unit_name." was successfully saved.".$upload_result, "success");
+            $session->set_message($business_unit->business_unit_name . " was successfully saved." . $upload_result, "success");
+
         redirect_to("businessunit_management.php");
     } else {
         echo "An error has occured adding the business unit to the database.";
