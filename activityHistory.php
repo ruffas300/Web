@@ -50,9 +50,15 @@ if(isset($_GET['type'])){
                 <th >Detail</th>";
 
         //For loop here through rows of comments
-        $tableData = "<tr><td >Dxcxcate</td>
-                <td >Actercdccion</td>
-                <td >rere</td></tr>";
+        $allComments = getAllComments($_GET['id']);
+        foreach ($allComments as $thisComment) {
+
+            //ToDo Link post
+            $tableData = "<tr><td >" .$thisComment->date. "</td>
+                <td ><a>".get_full_name($thisComment->id)."</a>"." Commented On A Post" ."</td>
+                <td ><a>".getAppreciation($thisComment->appreciationId)->title."</a> \n".$thisComment->description. "</td></tr>";
+        }
+
             break;
 
 
