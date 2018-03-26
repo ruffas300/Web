@@ -141,7 +141,6 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo get_full_name($session->userid); ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_profile.php';}else{echo 'my_profile.php';}  ?>">My Profile</a></li>
-                  <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_appreciation.php';}else{echo 'my_appreciation.php';}; ?>">My Recognition/Rewards</a></li>
                   <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../view_pending.php';}else{echo 'view_pending.php';} ?>">View Pending</a></li>
                   <li><a href="<?php if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo '../my_configuration.php';}else{echo 'my_configuration.php';} ?>">Configuration</a></li>
                   <li role="separator" class="divider"></li>

@@ -48,7 +48,7 @@ $picture_id = User::get_picture_id($session->userid);
                       <br>
                          <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
                         " . $live_feed->title . "
-                      </h2></a>
+                      </h2></a><p>
                       </h1>
                     
                         <h4 style='font-size: 10'><a style='font-size: 12'>" . $receiver . "</a> recognized by <a style='font-size: 12'>". $giver . "</a>!</h4>
@@ -58,7 +58,7 @@ $picture_id = User::get_picture_id($session->userid);
                       
                       
                      
-                       <h5 style=' margin-left: 12%; margin-top: inherit; font-weight:normal; font-size: '>
+                       <h5 style=' margin-left: 12%; margin-top: inherit; font-weight:normal; font-size: 14'>
                         " . $live_feed->description . "
                       </h5><br>";
 
@@ -103,7 +103,7 @@ $picture_id = User::get_picture_id($session->userid);
 
                                 <input type = \"hidden\" id=\"appId\" name = \"appId\" value = ".$live_feed->id." />
                                 <input type = \"hidden\" id =\"userId\" name = \"userId\" value = ". $session->userid. " />
-                                <input type = \"hidden\" id=\"date\" name = \"date\" value =".date("y/m/d")." />
+                                <input type = \"hidden\" id=\"date\" name = \"date\" value =".date('Y-m-d H:i:s')." />
                                    
                                     <div class=\"form-group\">
                                     

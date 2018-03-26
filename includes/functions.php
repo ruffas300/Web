@@ -224,7 +224,7 @@ function getAllComments($id){
     //makes empty array
     $allComments = array();
 
-    $commentResults = $database->query("SELECT * FROM comments WHERE id={$id} ORDER BY date");
+    $commentResults = $database->query("SELECT * FROM comments WHERE user={$id} ORDER BY date");
 
         while($row = $database->fetch_array($commentResults)){
             $thisComment = new Comment($row);
@@ -245,8 +245,44 @@ function current_user_history($user_id) {
 
 function getAppreciation($id){
     global $database;
-    $appResult = $database->query("SELECT * FROM appreciation WHERE id={$id} ORDER BY id DESC LIMIT 1");
+
+    $appResult = $database->query("SELECT * FROM appreciation WHERE id=".$id." LIMIT 1");
     $result = $database->fetch_array($appResult);
-     $appreciation = new Appreciation($result);
-    return $appreciation;
+    $app = Appreciation::instantiate($result);
+    return $app;
+}
+
+function getAllGivenRecog($id){
+    global $database;
+    //makes empty array
+    $allComments = array();
+
+    $giverResults = $database->query("SELECT * FROM appreciation WHERE giver_id={$id} ORDER BY date_given");
+
+    while($row = $database->fetch_array($giverResults)){
+        $thisComment = Appreciation::instantiate($row);
+        $allComments[] = $thisComment;
+
+    }
+
+    return $allComments;
+
+}
+
+
+function getAllRecRecog($id){
+    global $database;
+    //makes empty array
+    $allComments = array();
+
+    $giverResults = $database->query("SELECT * FROM appreciation WHERE receiver_id={$id} ORDER BY date_given");
+
+    while($row = $database->fetch_array($giverResults)){
+        $thisComment = Appreciation::instantiate($row);
+        $allComments[] = $thisComment;
+
+    }
+
+    return $allComments;
+
 }
