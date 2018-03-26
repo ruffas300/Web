@@ -1,5 +1,7 @@
 <?php
 require_once ('categoryObject.php');
+require_once ('Comment.php');
+require_once ('appreciation.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -214,6 +216,24 @@ function admin_sidebar_active($link1="", $link2="", $link3="", $link4="") {
     } else {
         return "";
     }
+
+}
+
+function getAllComments($id){
+    global $database;
+    //makes empty array
+    $allComments = array();
+
+    $commentResults = $database->query("SELECT * FROM comments WHERE id={$id} ORDER BY date");
+
+        while($row = $database->fetch_array($commentResults)){
+            $thisComment = new Comment($row);
+            $allComments[] = $thisComment;
+
+        }
+
+    return $allComments;
+
 }
 
 function current_user_history($user_id) {
@@ -221,4 +241,12 @@ function current_user_history($user_id) {
     $hx_result = $database->query("SELECT * FROM user_history WHERE user_id={$user_id} ORDER BY id DESC LIMIT 1");
     $result = $database->fetch_array($hx_result);
     return $result['id'];
+}
+
+function getAppreciation($id){
+    global $database;
+    $appResult = $database->query("SELECT * FROM appreciation WHERE id={$id} ORDER BY id DESC LIMIT 1");
+    $result = $database->fetch_array($appResult);
+     $appreciation = new Appreciation($result);
+    return $appreciation;
 }
