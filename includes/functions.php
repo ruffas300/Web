@@ -236,6 +236,24 @@ function getAllComments($id){
 
 }
 
+
+function getAllCommentsForAppreciation($id){
+    global $database;
+    //makes empty array
+    $allComments = array();
+
+    $commentResults = $database->query("SELECT * FROM comments WHERE appreciationId={$id} ORDER BY date");
+
+    while($row = $database->fetch_array($commentResults)){
+        $thisComment = new Comment($row);
+        $allComments[] = $thisComment;
+
+    }
+
+    return $allComments;
+
+}
+
 function current_user_history($user_id) {
     global $database;
     $hx_result = $database->query("SELECT * FROM user_history WHERE user_id={$user_id} ORDER BY id DESC LIMIT 1");
@@ -270,19 +288,54 @@ function getAllGivenRecog($id){
 }
 
 
-function getAllRecRecog($id){
+function getAllRecRecog($id)
+{
     global $database;
     //makes empty array
-    $allComments = array();
-
+    $allRecogs = array();
     $giverResults = $database->query("SELECT * FROM appreciation WHERE receiver_id={$id} ORDER BY date_given");
 
-    while($row = $database->fetch_array($giverResults)){
-        $thisComment = Appreciation::instantiate($row);
-        $allComments[] = $thisComment;
+    while ($row = $database->fetch_array($giverResults)) {
+        $thisRecog = Appreciation::instantiate($row);
+        $allRecogs[] = $thisRecog;
+        }
+
+    return $allRecogs;
+
+}
+    function getAllUsers()
+    {
+        global $database;
+        //makes empty array
+        $allUsers = array();
+
+        $userResults = $database->query("SELECT * FROM user WHERE status_id=1 ORDER BY first_name");
+
+        while ($row = $database->fetch_array($userResults)) {
+            $thisUser = User::instantiate($row);
+            $allUsers[] = $thisUser;
+
+        }
+
+        return $allUsers;
+
+
+
 
     }
 
-    return $allComments;
+function getUserById($id)
+{
+    global $database;
+    //makes empty array
+
+    $userResults = $database->query("SELECT * FROM user WHERE id={$id} LIMIT 1");
+
+    if ($row = $database->fetch_array($userResults)) {
+        $thisUser = User::instantiate($row);
+
+    }
+
+    return $thisUser;
 
 }

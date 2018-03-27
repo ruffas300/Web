@@ -20,14 +20,12 @@ $picture_id = User::get_picture_id($session->userid);
     <img
             src="bus_unit_picture/logo.png"/>
     <div class="container-fluid">
-        <div class="row">
+        <div class="wrapper">
             <!-- left sidebar column -->
 <!--            --><?php //include("layouts/user_sidebar.php"); ?>
             <!-- right main column -->
-            <div class="col-lg-9">
-                <div class="fk">
 
-                    <ul class="ca bqf bqg agk">
+
 
                         <?php
                         $live_feeds = Appreciation::find_for_livefeed(10);
@@ -39,34 +37,31 @@ $picture_id = User::get_picture_id($session->userid);
                             $category = get_allcategory_names($live_feed->id);
                             $picture = User::get_picture_id($live_feed->receiver_id);
                             echo "
-                <li class=\"\" >
+               <div class=\"hidden-xxs col-xs-2 col-md-1 no-padding\">
                  <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:85px; width: 85px;\"/>
-               
-                  <div class=\"tv\">
-                     <div class=\"bqm\">
-                      <div class=\"bqk\">
-                      <br>
-                         <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
+               </div>
+                   <div class=\"col-xxs-12 col-xs-10 col-md-11 activity-info\">
+
+                    <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
                         " . $live_feed->title . "
                       </h2></a><p>
                       </h1>
                     
-                        <h4 style='font-size: 10'><a style='font-size: 12'>" . $receiver . "</a> recognized by <a style='font-size: 12'>". $giver . "</a>!</h4>
-                      </div>
+                        <h4 style='font-size: 10'><a href='view_profile.php?id=$live_feed->receiver_id' style='font-size: 12'>" . $receiver . "</a> recognized by <a href='view_profile.php?id=$live_feed->giver_id'style='font-size: 12'>". $giver . "</a>!</h4>
                      
                     
                       
                       
                      
-                       <h5 style=' margin-left: 12%; margin-top: inherit; font-weight:normal; font-size: 14'>
+                       <span style='margin-top: inherit; font-weight:normal; font-size: 14'>
                         " . $live_feed->description . "
-                      </h5><br>";
+                       </span><br>";
 
                             $allCategorited =  get_allcategory_Objects($live_feed->id);
                             foreach ( $allCategorited  as $cat) {
 
                                 if($cat === $allCategorited[0]){
-                                    echo "<button class='btn-default btn-xs' style='margin-left: 12%; color: #2e6da4'>$cat->category_name &nbsp</button>";
+                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4'>$cat->category_name &nbsp</button>";
 
                                 }else{
                                     echo "<button class='btn-default btn-xs' style='color: #2e6da4; margin-left: 2px;'>$cat->category_name &nbsp</button>";
@@ -74,30 +69,60 @@ $picture_id = User::get_picture_id($session->userid);
                                 }
                             }
 
-                            echo "<br><small style=\" margin-left: 12%; margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br>";
+                            echo "<br><small style=\"margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br>";
 
                             //Comments from this appreciation
-                            foreach ($live_feed->get_all_comments() as $comment) {
-                                $commentor = get_full_name($comment->user);
+                            $allComments = $live_feed->get_all_comments();
+                            for ($i = 0; $i < sizeof($allComments); $i++ ) {
 
+                                $comment  = $allComments[$i];
+
+                                $commentor = get_full_name($comment->user);
                                 $date = date_create($comment->date);
                                 $commentDate = date_format($date,'F d, Y');
-
                                 $commentText = $comment->commentText;
 
                                 //html for said comments
-                                echo "<li class=\"tu b ahx\" style=' margin-left: 12%; margin-top: inherit'>
-                                    <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\"><span>&nbsp</span>
-                                        ". $commentor. ": " . $commentText ."
-                                        <br>$commentDate</br>
-                                    </li>";
+                                if($i < 4) {
+
+
+                                    echo "<li class=\"tu b ahx\">
+                                    <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
+                                        " . $commentor . ": " . $commentText . "
+                                        <br>$commentDate</br>";
+
+                                          if($i == 3 && sizeof($allComments)){
+                                              echo "<li class=\"tu b ahx\" style='height: 1%'><a>Show all...</a></li>";
+                                            }
+
+                                            echo"</li>";
+
+
+
+                                }else{
+
+                                    echo "<li class=\"tu b ahx\" style='display:none'; >
+                                    <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
+                                        " . $commentor . ": " . $commentText . "
+                                        <br>$commentDate</br>";
+
+
+
+
+
+
+                                    echo "</li>";
+
+
+                                }
 
 
                             }
 
-                            echo"
-<li class=\"tu b ahx\" style=' margin-left: 12%; margin-top: inherit; height:60px'>
-<form id='commentForm' method=\"POST\" action=\"postComment.php\">
+
+                                echo"
+                                    <li class=\"tu b ahx\" style=' height:60px'>
+                                    <form id='commentForm' method=\"POST\" action=\"postComment.php\">
 
 
 
@@ -105,16 +130,14 @@ $picture_id = User::get_picture_id($session->userid);
                                 <input type = \"hidden\" id =\"userId\" name = \"userId\" value = ". $session->userid. " />
                                 <input type = \"hidden\" id=\"date\" name = \"date\" value =".date('Y-m-d H:i:s')." />
                                    
-                                    <div class=\"form-group\">
                                     
                                     
-                                        <div >
                                         
                                           <div style=\"float: left;\">
-                                            <img width='35px' height='35px' src=\"pictures/" . $picture_id . "\" style=\"alignment:left;\">
+                                            <img width='35px' height='35px' src=\"pictures/" . $picture_id . "\" style=\"alignment:left; border-radius: 20%\">
                                                 <div style='float: right'>
                                                   <textarea class=\"form-control\" id=\"comment\" name=\"comment\" rows=\"1\" cols=\"55\" required style='alignment: left'></textarea>
-                                                        <input  type=\"submit\"class=\"btn btn-primary\" id=\"commentSubmit\"value=\"Submit\" name=\"submit\"  style='alignment: right; display: none;'/>
+                                                        <input  type=\"submit\"class=\"btn btn-primary\" id=\"commentSubmit\"value=\"Comment\" name=\"submit\"  style='alignment: right; display: none;'/>
                                                 </div>
                                           </div>
                                         </div>
@@ -123,6 +146,7 @@ $picture_id = User::get_picture_id($session->userid);
                                   </li>
 
         </form>
+        </div>
         
         
         
@@ -135,7 +159,7 @@ $picture_id = User::get_picture_id($session->userid);
 
                         }
                         ?>
-                    </ul>
+                    </h2>
 
                 </div>
 
@@ -147,12 +171,49 @@ $picture_id = User::get_picture_id($session->userid);
 
         </div>
     </div>
+</div>
         </body>
 <?php include("layouts/footer.php"); ?>
 
 <script type="text/JavaScript">
+//
+//    function showHiddenComments() {
+//        $(this).closest("li").show();
+//
+//    }
 
     $(document).ready(function () {
+
+        // $('li a').click(function () {
+        //
+        //     $(this).parent().siblings("li.tu.b.ahx:hidden").show()
+        //     $(this).closest("li").hide();
+        //
+        //     var lastComment =  $(this).parent().siblings("li.tu.b.ahx").size();
+        //     var commentText =  $(this).parent().siblings("li.tu.b.ahx:last");
+        //
+        //    $(this).parent().siblings("li.tu.b.ahx:last").after("<li class='tu b ahx' style='height: 1%'><a>Collapse...</a></li>");
+        //
+        //    //TODO Fix show more !!
+        //     $(this).parent().siblings("li.tu.b.ahx").each(function(i, obj) {
+        //
+        //         $('a').click(function () {
+        //
+        //
+        //             if (i > 3 && i != lastComment - 1) {
+        //
+        //                 console.log($(obj).siblings("li.tu.b.ahx"));
+        //
+        //                 // $(obj).siblings("li.tu.b.ahx")[i] = "<li class='tu b ahx' style='height: 1%'><a>Collapse...</a></li>";
+        //                 $(obj).hide();
+        //
+        //
+        //             }
+        //         });
+        //
+        //     });
+        //
+        // });
 
         $('form').click(function() {
             console.log( $(this).closest('form').find('input'));
@@ -166,12 +227,12 @@ $picture_id = User::get_picture_id($session->userid);
 
             if(this.value.length) {
                 $(this).closest('form').find('input').show();
-                $(this).closest('li').attr({style:'margin-left: 12%; margin-top: inherit; height: 90px'});
+                $(this).closest('li').attr({style:'height: 90px'});
 
 
             }else{
                 $(this).closest('form').find('input').hide();
-                $(this).closest('li').attr({style:' margin-left: 12%; margin-top: inherit; height: 60px'});
+                $(this).closest('li').attr({style:'height: 60px'});
 
 
             }
