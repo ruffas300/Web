@@ -33,6 +33,7 @@ if (!isset($_GET['id'])) {
     $user->employee_id = $database->escape_value($_POST['employee_id']);
     $user->email_address = $database->escape_value($_POST['email_address']);
     $user->business_unit_id = $database->escape_value($_POST['business_unit_id']);
+    $user->job_title = $database->escape_value($_POST['job_title']);
     $user->department_id = $database->escape_value($_POST['department_id']);
     $user->manager_id = $database->escape_value($_POST['manager_id']);
 
@@ -96,6 +97,7 @@ if (!isset($_GET['id'])) {
         <label for="email_address">E-Mail Address</label>
         <input type="email" class="form-control" id="email_address" name="email_address" value="<?php echo $user->email_address; ?>" required>
     </div>
+
     <div class="form-group">
     <label for="business_unit_id">Business Unit</label>
         <select class="form-control" id="business_unit_id" name="business_unit_id">
@@ -128,6 +130,12 @@ if (!isset($_GET['id'])) {
             ?>
         </select>
     </div>
+
+    <div class="form-group">
+        <label for="job_title">Job Title</label>
+        <input type="text" class="form-control" id="job_title" name="job_title" value="<?php echo $user->job_title; ?>" required>
+    </div>
+
     <div class="form-group">
     <label for="manager_id">Reports To</label>
         <select class="form-control" id="manager_id" name="manager_id">

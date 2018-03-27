@@ -27,11 +27,16 @@ if(isset($_GET['id'])) {
         <br>
         <h1 style="text-align: center; width: inherit"><?PHP echo get_full_name($thisFeller->id)?></h1>
         <br>
-        <a href="activityHistory.php?type=postGiven&id=<?PHP echo $thisFeller->id?>" style="text-align: center">Post Given</a>
+        <h4 style="text-align: center">Recognitions</h4>
 
-        <a href="activityHistory.php?type=recognitionReceived&id=<?PHP echo $thisFeller->id?>" style="text-align: center">Post Received</a>
+        <h4 style="text-align: right"><a href="activityHistory.php?type=postGiven&id=<?PHP echo $thisFeller->id?>" style="text-align:center;">Given</a>  -   <a href="activityHistory.php?type=recognitionReceived&id=<?PHP echo $thisFeller->id?>" style="text-align:center;">Received</a>  -  <a href="activityHistory.php?type=commentsWritten&id=<?PHP echo $thisFeller->id?>"style="text-align:center;">Comments</a></h4>
 
-        <a href="activityHistory.php?type=commentsWritten&id=<?PHP echo $thisFeller->id?>" style="text-align: center">Comments</a>
+        <div><h4 style="text-align: left">E-mail: <a href="mailto:<?PHP echo $thisFeller->email_address?>" style="text-align:center;"><?PHP echo $thisFeller->email_address?></a></h4></div>
+        <div><h4 style="text-align: left">Department: <?PHP echo get_department_name($thisFeller->department_id)?></h4></div>
+        <div><h4 style="text-align: left">Location: <?PHP echo get_businessunit_name($thisFeller->business_unit_id)?></h4></div>
+        <div><h4 style="text-align: left">Title:  <?PHP echo $thisFeller->job_title?></h4></div>
+        <div><h4 style="text-align: left">Manager: <?PHP echo get_full_name($thisFeller->manager_id)?></h4></div>
+
 
 
     </div>

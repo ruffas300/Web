@@ -16,6 +16,7 @@ if (!$session->is_logged_in()) {
 $picture_id = User::get_picture_id($session->userid);
 
 
+
 ?>
     <img
             src="bus_unit_picture/logo.png"/>

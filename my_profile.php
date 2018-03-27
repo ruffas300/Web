@@ -141,6 +141,8 @@ $user = User::find_by_id($session->userid);
                         <label for="employee_id">Employee ID</label>
                         <input type="text" class="form-control" id="employee_id" name="employee_id" value="<?php echo $user->employee_id; ?>" disabled>
                     </div>
+
+
                     <div class="form-group">
                     <label for="business_unit_id">Business Unit</label>
                         <select class="form-control" id="business_unit_id" name="business_unit_id" disabled>
@@ -157,6 +159,11 @@ $user = User::find_by_id($session->userid);
                             ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="job_title">Job Title</label>
+                        <input type="text" class="form-control" id="job_title" name="job_title" value="<?php echo $user->job_title; ?>" disabled>
+                    </div>
+
                     <div class="form-group">
                     <label for="department_id">Department</label>
                         <select class="form-control" id="department_id" name="department_id" disabled>

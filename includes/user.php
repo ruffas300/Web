@@ -4,7 +4,7 @@ require_once("sessions.php");
 
 class User {
     
-    protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name', 'hire_date', 'employee_id', 'email_address', 'business_unit_id', 'department_id', 'manager_id', 'picture_id', 'status_id');
+    protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name', 'hire_date', 'employee_id', 'email_address', 'business_unit_id','job_title', 'department_id', 'manager_id', 'picture_id', 'status_id');
     
     public $id;
     public $username;
@@ -15,6 +15,7 @@ class User {
     public $employee_id;
     public $email_address;
     public $business_unit_id;
+    public $job_title;
     public $department_id;
     public $manager_id;
     public $picture_id;
@@ -229,6 +230,8 @@ class User {
         $sql .= "', hire_date = '".$database->escape_value($this->hire_date);
         $sql .= "', employee_id = '".$database->escape_value($this->employee_id);
         $sql .= "', email_address = '".$database->escape_value($this->email_address);
+        $sql .= "', business_unit_id = '".$database->escape_value($this->business_unit_id);
+        $sql .= "', job_title = '".$database->escape_value($this->job_title);
         $sql .= "', department_id = '".$database->escape_value($this->department_id);
         $sql .= "', manager_id = '".$database->escape_value($this->manager_id);
         $sql .= "', status_id = '".$database->escape_value($this->status_id);

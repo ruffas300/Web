@@ -29,6 +29,7 @@ if (isset($_POST['submit'])) {
     $user->employee_id = $database->escape_value($_POST['employee_id']);
     $user->email_address = $database->escape_value($_POST['email_address']);
     $user->business_unit_id = $database->escape_value($_POST['business_unit_id']);
+    $user->job_title = $database->escape_value($_POST['job_title']);
     $user->department_id = $database->escape_value($_POST['department_id']);
     $user->manager_id = $database->escape_value($_POST['manager_id']);
 //    if (!File_Upload::check_upload_error($_FILES['picture_id'])) {
