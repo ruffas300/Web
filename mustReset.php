@@ -44,25 +44,27 @@ $user = User::find_by_id($session->userid);
 
             <div class="col-md-9">
                 <div class="fk">
-                    <ul class="ca bqf bqg agk">
+                    <ul class="ca bqf bqg agk ">
 
-                        <li class="tu b ahx">
-                            <h2>Reset Your Password</h2>
+                        <li class="tu b ahx" style="list-style-type: none">
+                            <h2 style="margin-top: 10%; margin-left: 10%">Reset Your Password</h2>
+                            <h3 style="margin-left: 10%">You are required to create a new password</h3>
                         </li>
 
-                        <li class="tu b ahx">
+                        <li class="tu b ahx" style="list-style-type: none">
                             <form method="POST" enctype="multipart/form-data" action="my_profile.php">
 
-                                <div class="form-group">
+                                <div class="form-group" style="margin: 10%; margin-top: 2%; margin-bottom: 1%">
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password">
+                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password"><br>
                                     <input type="submit" class="btn btn-primary" value="Change Password" name="changepassword">
                                 </div>
                                 <div class="form-group">
 
-                                    <!--                        <p>Upload your file</p>-->
-                                    <!--                        <input type="file" name="uploaded_file"/><br />-->
-                                    <!--                        <input type="submit" value="Upload"/>-->
+                                    <img  style="margin: 10%; height: 275px; width: 275px;" src="pictures/stop.png">
+
+
+
 
 
                                 </div>

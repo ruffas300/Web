@@ -92,7 +92,7 @@ class User {
     
     public static function find_all() {
         //return all records
-        return static::find_by_sql("SELECT * FROM user");
+        return static::find_by_sql("SELECT * FROM user ORDER BY last_name");
     }
     
     public static function find_by_id($id=0) {
@@ -198,7 +198,7 @@ class User {
     public static function update_username($username, $id) {
         //updated the username only
         global $database;
-        $sql = "UPDATE user SET username = ".strtolower($database->escape_value($username));
+        $sql = "UPDATE user SET username = '".strtolower($database->escape_value($username));
         $sql .= "' WHERE id=".$database->escape_value($id);
         if ($database->query($sql)) {
             return true;
@@ -210,13 +210,16 @@ class User {
     public static function update_password($password, $id) {
         //updated the password only
         global $database;
-        $sql = "UPDATE user SET password = ".$password;
+        $sql = "UPDATE user SET password='".$password;
         $sql .= "' WHERE id=".$database->escape_value($id);
+        print_r($sql);
+
         if ($database->query($sql)) {
             return true;
         } else {
             return false;
         }
+
     }
     
     public function update() {

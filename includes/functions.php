@@ -46,6 +46,15 @@ function get_full_name($id) {
     return $row['first_name']." ".$row['last_name'];
 }
 
+function get_full_name_By_Employee_id($emp_id) {
+    //return full name as "First Last"
+    global $database;
+    $result = $database->query("SELECT * FROM user WHERE employee_id={$emp_id} LIMIT 1");
+    $row = $database->fetch_array($result);
+    return $row['first_name']." ".$row['last_name'];
+}
+
+
 function get_category_name($id) {
     //return category
     global $database;
@@ -127,7 +136,7 @@ function get_reportsto_name($id=0) {
     if ($id==0) {
         return "No One";
     } else {
-        $sql = "SELECT * FROM user WHERE id={$id}";
+        $sql = "SELECT * FROM user WHERE employee_id={$id}";
         $result = $database->query($sql);
         $row = $database->fetch_array($result);
         return $row['last_name'].", ".$row['first_name'];        
@@ -293,7 +302,7 @@ function getAllRecRecog($id)
     global $database;
     //makes empty array
     $allRecogs = array();
-    $giverResults = $database->query("SELECT * FROM appreciation WHERE receiver_id={$id} ORDER BY date_given");
+    $giverResults = $database->query("SELECT * FROM appreciation WHERE receiver_id LIKE '%".$id.",%' ORDER BY date_given");
 
     while ($row = $database->fetch_array($giverResults)) {
         $thisRecog = Appreciation::instantiate($row);
@@ -337,5 +346,83 @@ function getUserById($id)
     }
 
     return $thisUser;
+
+}
+
+/*
+ *
+ * This function takes in a string of csv that are ids of people receiving posts.
+ * it then checks the url path for the presence of /admin/ and if so appends the returned html links paths
+ * to the correct one.
+ *
+ * It also accounts for users, names, being, separated and etc.
+ */
+function get_allReceiverAsNameLink($receiver_id) {
+
+    global $database;
+    $appendRelativePath ="";
+    if(strpos($_SERVER['PHP_SELF'],"/admin/")){
+        $appendRelativePath = "../";
+    }
+    $id = rtrim($receiver_id,",");
+    $allIdsAsArray = explode(",",$id);
+    $htmlString = "";
+
+    $comma = "";
+    $i = 0;
+    foreach ($allIdsAsArray as $userId) {
+        $int = (int)$userId;
+        $userResult = $database->query("SELECT * FROM user WHERE id={$int}");
+        $userRow = $database->fetch_array($userResult);
+        $sizeOfArray = sizeof($allIdsAsArray) -1;
+
+        if(sizeof($allIdsAsArray) > 2 &&  $i != $sizeOfArray -1){
+            $comma = ",";
+        }else{
+            $comma = "";
+        }
+
+            if ($userId !== end($allIdsAsArray)) {
+            $htmlString .= "<a style='font-size: 14' href='".$appendRelativePath."view_profile.php?id=".$userRow["id"]."'>".get_full_name($userRow["id"])."".$comma."  </a>";
+
+
+        }else if(sizeof($allIdsAsArray) > 1){
+            $htmlString .= "<span>and </span><a style='font-size:14' href='".$appendRelativePath."view_profile.php?id=".$userRow["id"]."'>".get_full_name($userRow["id"])."</a>";
+
+
+        }else{
+                $htmlString .= "<a style='font-size:14' href='".$appendRelativePath."view_profile.php?id=".$userRow["id"]."'>".get_full_name($userRow["id"])."</a>";
+
+
+            }
+
+    $i++;
+    }
+
+    return $htmlString;
+}
+
+
+function get_allReciverAsUser($reciever_id) {
+    global $database;
+    $allusuers = [];
+    $id = rtrim($reciever_id,",");
+        $allIdsAsArray = explode(",", $id);
+
+
+        foreach ($allIdsAsArray as $userId) {
+            $int = (int)$userId;
+            $userResult = $database->query("SELECT * FROM user WHERE id={$int}");
+            $usereRow = $database->fetch_array($userResult);
+
+
+                $allusuers[] = User::instantiate($usereRow);
+
+
+
+        }
+
+    return $allusuers;
+
 
 }

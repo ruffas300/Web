@@ -2,7 +2,7 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="Dunmore.com">
+      <paths name="Dunmore.com (project level)">
         <serverdata>
           <mappings>
             <mapping deploy="/dunmore/dunDifference" local="$PROJECT_DIR$" web="/" />

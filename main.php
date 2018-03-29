@@ -17,6 +17,20 @@ $picture_id = User::get_picture_id($session->userid);
 
 
 
+
+
+//User pw check & redirect!
+
+ $currentPassword= getUserById($session->userid)->password;
+
+
+if(password_verify("dunmore12", $currentPassword)){
+    echo"<script> location.replace('mustReset.php'); </script>";
+
+
+}
+
+
 ?>
     <img
             src="bus_unit_picture/logo.png"/>
@@ -34,21 +48,22 @@ $picture_id = User::get_picture_id($session->userid);
                         foreach ($live_feeds as $live_feed) {
                             $giver = get_full_name($live_feed->giver_id);
                             //TODO add multiple recievers
-                            $receiver = get_full_name($live_feed->receiver_id);
                             $category = get_allcategory_names($live_feed->id);
-                            $picture = User::get_picture_id($live_feed->receiver_id);
+                            $firstReciever = get_allReciverAsUser($live_feed->receiver_id);
+                            $picture = User::get_picture_id($firstReciever[0]->id);
                             echo "
                <div class=\"hidden-xxs col-xs-2 col-md-1 no-padding\">
                  <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:85px; width: 85px;\"/>
                </div>
-                   <div class=\"col-xxs-12 col-xs-10 col-md-11 activity-info\">
+               <div class='row'>
+                   <div class=\"col-xxs-12 col-xs-10 col-lg-10 activity-info\">
 
                     <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
                         " . $live_feed->title . "
                       </h2></a><p>
                       </h1>
                     
-                        <h4 style='font-size: 10'><a href='view_profile.php?id=$live_feed->receiver_id' style='font-size: 12'>" . $receiver . "</a> recognized by <a href='view_profile.php?id=$live_feed->giver_id'style='font-size: 12'>". $giver . "</a>!</h4>
+                        <h4 style='font-size: 10'>".get_allReceiverAsNameLink($live_feed->receiver_id)." recognized by <a href='view_profile.php?id=$live_feed->giver_id'style='font-size: 12'>". $giver . "</a></h4>
                      
                     
                       
@@ -57,20 +72,20 @@ $picture_id = User::get_picture_id($session->userid);
                        <span style='margin-top: inherit; font-weight:normal; font-size: 14'>
                         " . $live_feed->description . "
                        </span><br>";
-
+                            $commentLimit = 3;
                             $allCategorited =  get_allcategory_Objects($live_feed->id);
                             foreach ( $allCategorited  as $cat) {
 
                                 if($cat === $allCategorited[0]){
-                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4'>$cat->category_name &nbsp</button>";
+                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4; margin-top: 2px'>$cat->category_name &nbsp</button>";
 
                                 }else{
-                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4; margin-left: 2px;'>$cat->category_name &nbsp</button>";
+                                    echo "<button class='btn-default btn-xs' style='color: #2e6da4; margin-left: 2px; margin-top: 2px'>$cat->category_name &nbsp</button>";
 
                                 }
                             }
 
-                            echo "<br><small style=\"margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br>";
+                            echo "<br><small style=\"margin-top: inherit; color: #808080; font-size: 14\">". date('F d, Y g:i A', strtotime($live_feed->date_approved)) . "</small><br><div id='shownComments'>";
 
                             //Comments from this appreciation
                             $allComments = $live_feed->get_all_comments();
@@ -84,35 +99,52 @@ $picture_id = User::get_picture_id($session->userid);
                                 $commentText = $comment->commentText;
 
                                 //html for said comments
-                                if($i < 4) {
+                                if($i < $commentLimit) {
 
+                                    echo "<li class=\"tu b ahx\" >
+                                    <img width='55px' height='55px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
+                                        <ul><li style=\"list-style-type: none;\"><a href='view_profile.php?id=$comment->user' style='font-size: 12'>" . $commentor ."</a><span>". ": " . $commentText . "</span></li>
+                                        <li style='list-style-type: none'>$commentDate</li>";
 
-                                    echo "<li class=\"tu b ahx\">
-                                    <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
-                                        " . $commentor . ": " . $commentText . "
-                                        <br>$commentDate</br>";
+                                          if($i == $commentLimit-1 && sizeof($allComments)){
+//                                              echo "<li class=\"tu b ahx\" style='height: 1%'><a>Show all...</a></li>";
+                                             echo"<li style='list-style-type: none'><a data-toggle=\"collapse\" href=\"#hiddenComms".$live_feed->id."\">Show More...</a></li>";
 
-                                          if($i == 3 && sizeof($allComments)){
-                                              echo "<li class=\"tu b ahx\" style='height: 1%'><a>Show all...</a></li>";
                                             }
 
-                                            echo"</li>";
+                                            echo"</li></ul>";
 
 
 
                                 }else{
-
-                                    echo "<li class=\"tu b ahx\" style='display:none'; >
-                                    <img width='35px' height='35px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
-                                        " . $commentor . ": " . $commentText . "
-                                        <br>$commentDate</br>";
-
+                                    // if begininng of hidden comments only
+                                    if($i==$commentLimit){
+                                        echo"</div><div id=\"hiddenComms$live_feed->id\" class=\"accordion-body collapse\">";
+                                    }
 
 
 
 
+                                    if($i == sizeof($allComments)-1) {
+                                        echo "<li class=\"tu b ahx\">
+                                    <img width='55px' height='55px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
+                                       <ul><li style=\"list-style-type: none;\"><a href='view_profile.php?id=$comment->user' style='font-size: 12'>" . $commentor ."</a><span>". ": " . $commentText . "</span></li>
+                                        <li style='list-style-type: none'>$commentDate</li>";
 
-                                    echo "</li>";
+                                        echo"<li style='list-style-type: none'><a data-toggle=\"collapse\" href=\"#hiddenComms".$live_feed->id."\">Show Less...</a></li>";
+                                    }else{
+                                        echo "<li class=\"tu b ahx\">
+                                    <img width='55px' height='55px' src=\"pictures/" . $comment->get_picture_id() . "\" style='border-radius: 20%'><span>&nbsp</span>
+                                        <ul><li style=\"list-style -type: none;\"><a href='view_profile.php?id=$comment->user' style='font-size: 12'>" . $commentor ."</a><span>". ": " . $commentText . "</span></li>
+                                        <li style='list-style-type: none'>$commentDate</li>";
+
+                                    }
+
+
+
+
+
+                                    echo "</li></ul>";
 
 
                                 }
@@ -122,7 +154,7 @@ $picture_id = User::get_picture_id($session->userid);
 
 
                                 echo"
-                                    <li class=\"tu b ahx\" style=' height:60px'>
+                                    </div><li class=\"tu b ahx\" style=' height:60px'>
                                     <form id='commentForm' method=\"POST\" action=\"postComment.php\">
 
 
@@ -148,7 +180,7 @@ $picture_id = User::get_picture_id($session->userid);
 
         </form>
         </div>
-        
+        </div>
         
         
         

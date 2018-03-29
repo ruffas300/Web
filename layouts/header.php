@@ -50,7 +50,10 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
           echo "<link href=\"".include_css("footer.css")."\" rel=\"stylesheet\">";
 
           if (strcmp(basename($_SERVER['PHP_SELF']),"main.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
-            if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+          if (strcmp(basename($_SERVER['PHP_SELF']),"recognize.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+          if (strcmp(basename($_SERVER['PHP_SELF']),"people.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+          if (strcmp(basename($_SERVER['PHP_SELF']),"view_profile.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
+          if (strcmp(basename($_SERVER['PHP_SELF']),"activityHistory.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
             if (strcmp(basename($_SERVER['PHP_SELF']),"reward.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
             if (strcmp(basename($_SERVER['PHP_SELF']),"my_profile.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }
             if (strcmp(basename($_SERVER['PHP_SELF']),"my_configuration.php")==0) { echo "<link href=\"".include_css("main.css")."\" rel=\"stylesheet\">"; }

@@ -11,6 +11,10 @@ body {
   margin-top: 1rem;
   border-radius: 10px;
 }
+
+.noBull li {
+  list-style-type: none;
+}
 .float-my-children > * {
   float:left;
   margin-right:5px;

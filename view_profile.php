@@ -19,8 +19,6 @@ if(isset($_GET['id'])) {
 }
 
 ?>
-
-
 <div class="container-fluid">
     <div class="col-lg-1 col-lg-10" style="margin-top:  5%; width: 300px ">
         <img src="pictures/<?PHP echo $thisFeller->picture_id; ?> " style="height: 300px ;width: inherit; border-radius: 20%" >
@@ -35,7 +33,7 @@ if(isset($_GET['id'])) {
         <div><h4 style="text-align: left">Department: <?PHP echo get_department_name($thisFeller->department_id)?></h4></div>
         <div><h4 style="text-align: left">Location: <?PHP echo get_businessunit_name($thisFeller->business_unit_id)?></h4></div>
         <div><h4 style="text-align: left">Title:  <?PHP echo $thisFeller->job_title?></h4></div>
-        <div><h4 style="text-align: left">Manager: <?PHP echo get_full_name($thisFeller->manager_id)?></h4></div>
+        <div><h4 style="text-align: left">Manager: <?PHP echo get_full_name_By_Employee_id($thisFeller->manager_id)?></h4></div>
 
 
 
@@ -56,10 +54,8 @@ if(isset($_GET['id'])) {
             ";
             foreach ($live_feeds as $live_feed) {
                 $giver = get_full_name($live_feed->giver_id);
-                //TODO add multiple recievers
-                $receiver = get_full_name($live_feed->receiver_id);
-                $category = get_allcategory_names($live_feed->id);
-                $picture = User::get_picture_id($live_feed->receiver_id);
+                $firstReciever = get_allReciverAsUser($live_feed->receiver_id);
+                $picture = User::get_picture_id($firstReciever[0]->id);
                 echo "
                    <div class=\"col-lg-12 activity-info\" style='margin-left: 2%' >
                     <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
@@ -115,7 +111,7 @@ if(isset($_GET['id'])) {
 
                     }else{
 
-                        echo "<li class=\"tu b ahx\" style='display:none'; >
+                        echo "<liclass=\"tu b ahx\" style='display:none' >
                                     <img width='35px' height='35px' src=\"pictures/" . get_picture_id($comment->user) . "\" style='border-radius: 20%'><span>&nbsp</span>
                                         " . $commentor . ": " . $commentText . "
                                         <br>$commentDate</br></li>";

@@ -144,10 +144,10 @@ if (!isset($_GET['id'])) {
             $sql = "SELECT * FROM user ORDER BY last_name"; 
             $query = $database->query($sql);
             while($row = $database->fetch_array($query)) {
-                $value = $row['id'];
+                $value = $row['employee_id'];
                 $name = $row['last_name'].", ".$row['first_name'];
                 echo "<option value=\"".$value."\" ";
-                if ($row['id'] == $user->manager_id) { echo "selected"; }
+                if ($row['employee_id'] == $user->manager_id) { echo "selected"; }
                 echo ">".$name."</option>";
             }
             ?>

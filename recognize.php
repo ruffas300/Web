@@ -17,10 +17,13 @@ if (isset($_POST['submit'])) {
         $session->set_message("You must select a user to appreciate.", "danger");
         redirect_to("recognize.php");
     }
-    
-    foreach ($_POST['receiver_id'] as $rec_id) {
         $appreciation = new Appreciation();
 
+        $receiverList = "";
+        foreach ($_POST['receiver_id'] as $rec_id) {
+            $receiverList .= $rec_id.",";
+
+        }
         //Categories saved as text in db as csv
         $categoryList= "";
         foreach($_POST['category_id'] as $cat_id){
@@ -35,8 +38,8 @@ if (isset($_POST['submit'])) {
         }else{
             $explode_category_points = [];
         }
-        $appreciation->receiver_id = $rec_id;
-        $appreciation->receiver_history_id = current_user_history($rec_id);
+        $appreciation->receiver_id = $receiverList;
+//        $appreciation->receiver_history_id = current_user_history($rec_id);
         $appreciation->giver_id = $session->userid;
         $appreciation->giver_history_id = current_user_history($session->userid);
         $appreciation->date_given = date('Y-m-d H:i:s');
@@ -72,7 +75,7 @@ if (isset($_POST['submit'])) {
             $session->set_message("An error has occured adding the recognition to the database.", "danger");
             redirect_to("recognize.php");
         }
-    }
+
     
     if($successful_result) {
         $session->set_message("Appreciation sucessfully submitted.", "success");
@@ -107,7 +110,7 @@ if (isset($_POST['submit'])) {
                         <select id="receiver_id" name="receiver_id[]" multiple class="form-control" placeholder="Start typing to select a recipient..." required>
                         	<option value="">Select a user...</option>
                             <?php 
-                            $sql = "SELECT * FROM user WHERE status_id=1 AND id <> {$session->userid} ORDER BY first_name"; 
+                            $sql = "SELECT * FROM user WHERE status_id=1 AND employee_id != {$session->userid} ORDER BY first_name";
                             $query = $database->query($sql);
                             while($row = $database->fetch_array($query)) {
                                 $user_id = $row['id'];

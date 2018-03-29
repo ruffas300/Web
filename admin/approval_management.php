@@ -64,7 +64,7 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE sta
         <tbody>
             <?php foreach($appreciations as $appreciation) { ?>
             <tr>
-                <td><?php echo get_full_name($appreciation->receiver_id); ?></td>
+                <td><?php echo get_allReceiverAsNameLink($appreciation->receiver_id); ?></td>
                 <td><?php echo get_full_name($appreciation->giver_id); ?></td>
                 <td><?php echo $appreciation->date_given; ?></td>
                 <td><?php echo get_allcategory_names($appreciation->id); ?></td>
