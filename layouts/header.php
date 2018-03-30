@@ -124,7 +124,7 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
 <!--            --><?php //} ?>
             <?php
             if ($permissions->has_perm('Admin Menu') || $permissions->has_perm('Manager') ){ ?>
-              
+
 
 
                   <?php

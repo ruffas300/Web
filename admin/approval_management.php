@@ -62,7 +62,12 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE sta
             </tr>
         </thead>
         <tbody>
+
+        <?PHP if($permissions->has_perm("Admin Menu")){ ?>
+
+
             <?php foreach($appreciations as $appreciation) { ?>
+
             <tr>
                 <td><?php echo get_allReceiverAsNameLink($appreciation->receiver_id); ?></td>
                 <td><?php echo get_full_name($appreciation->giver_id); ?></td>
@@ -74,6 +79,48 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE sta
                 <td><a href="edit_appreciation.php?id=<?php echo $appreciation->id; ?>">Edit</a> | <a href="#" data-href="process_appreciation.php?id=<?php echo $appreciation->id; ?>&type=d" data-toggle="modal" data-target="#confirm-delete">Deny</a> | <a href="process_appreciation.php?id=<?php echo $appreciation->id; ?>&type=a">Approve</a></td>
             </tr>
             <?php } ?>
+
+
+        <?php }else{ ?>
+
+            <?php foreach($appreciations as $appreciation) {
+
+                $canApprove = false;
+                $managersOfReceivers = get_allReciverAsUser($appreciation->receiver_id);
+                $user = getUserById($session->userid);
+                    foreach ($managersOfReceivers as $manager){
+                        if($user->employee_id == $manager->manager_id){
+                            $canApprove = true;
+                        }
+                    }
+                ?>
+                <?PHP if($canApprove){
+
+
+
+
+                    ?>
+
+
+                        <tr>
+                            <td><?php echo get_allReceiverAsNameLink($appreciation->receiver_id); ?></td>
+                            <td><?php echo get_full_name($appreciation->giver_id); ?></td>
+                            <td><?php echo $appreciation->date_given; ?></td>
+                            <td><?php echo get_allcategory_names($appreciation->id); ?></td>
+                            <td><?php echo $appreciation->description; ?></td>
+                            <td><?php echo $appreciation->point_value; ?></td>
+
+                            <td><a href="edit_appreciation.php?id=<?php echo $appreciation->id; ?>">Edit</a> | <a href="#" data-href="process_appreciation.php?id=<?php echo $appreciation->id; ?>&type=d" data-toggle="modal" data-target="#confirm-delete">Deny</a> | <a href="process_appreciation.php?id=<?php echo $appreciation->id; ?>&type=a">Approve</a></td>
+                        </tr>
+
+                <?php } ?>
+
+            <?php } ?>
+
+
+        <?php } ?>
+
+
         </tbody>
 </table>
 

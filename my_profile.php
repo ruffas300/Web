@@ -191,7 +191,7 @@ $user = User::find_by_id($session->userid);
                                 $value = $row['employee_id'];
                                 $name = $row['last_name'].", ".$row['first_name'];
                                 echo "<option value=\"".$value."\" ";
-                                if ($row['id'] == $user->manager_id) { echo "selected"; }
+                                if ($row['employee_id'] == $user->manager_id) { echo "selected"; }
                                 echo ">".$name."</option>";
                             }
                             ?>
