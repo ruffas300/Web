@@ -87,7 +87,7 @@ $pending_appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation W
                     <tbody>
                         <?php foreach($pending_appreciations as $pending_appreciation) { ?>
                         <tr>
-                            <td><?php echo get_full_name($pending_appreciation->receiver_id); ?></td>
+                            <td><?php echo get_allReceiverAsNameLink($pending_appreciation->receiver_id); ?></td>
                             <td><?php echo $pending_appreciation->date_given; ?></td>
                             <td><?php echo get_allcategory_names($pending_appreciation->id); ?></td>
                             <td><?php echo $pending_appreciation->description; ?></td>

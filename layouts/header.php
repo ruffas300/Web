@@ -12,7 +12,7 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+      <link rel="shortcut icon" type="image/png" href="http://www.dunmore.com/dunDifference/bus_unit_picture/favicon.png"/>
 
     <title>The Dunmore Difference</title>
     
@@ -123,21 +123,47 @@ $permissions = Role_Perm::get_role_perms($session->roleid);
 <!--            </li>-->
 <!--            --><?php //} ?>
             <?php
-            if ($permissions->has_perm('Admin Menu')){ ?>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'index.php';}else{echo 'admin'.DS.'index.php';} ?>">Dashboard</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'user_management.php';}else{echo 'admin'.DS.'user_management.php';} ?>">Users</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'businessunit_management.php';}else{echo 'admin'.DS.'businessunit_management.php';} ?>">Business Units</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'department_management.php';}else{echo 'admin'.DS.'department_management.php';} ?>">Departments</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'category_management.php';}else{echo 'admin'.DS.'category_management.php';} ?>">Recognition Categories</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'role_management.php';}else{echo 'admin'.DS.'role_management.php';} ?>">Roles</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'approval_management.php';}else{echo 'admin'.DS.'approval_management.php';} ?>">Approvals</a></li>
-                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'report_management.php';}else{echo 'admin'.DS.'report_management.php';} ?>">Reports</a></li>
+            if ($permissions->has_perm('Admin Menu') || $permissions->has_perm('Manager') ){ ?>
+              
+
+
+                  <?php
+                  if ($permissions->has_perm('Admin Menu')){ ?>
+
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                        <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'index.php';}else{echo 'admin'.DS.'index.php';} ?>">Dashboard</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'user_management.php';}else{echo 'admin'.DS.'user_management.php';} ?>">Users</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'businessunit_management.php';}else{echo 'admin'.DS.'businessunit_management.php';} ?>">Business Units</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'department_management.php';}else{echo 'admin'.DS.'department_management.php';} ?>">Departments</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'category_management.php';}else{echo 'admin'.DS.'category_management.php';} ?>">Recognition Categories</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'role_management.php';}else{echo 'admin'.DS.'role_management.php';} ?>">Roles</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'approval_management.php';}else{echo 'admin'.DS.'approval_management.php';} ?>">Approvals</a></li>
+                          <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'report_management.php';}else{echo 'admin'.DS.'report_management.php';} ?>">Reports</a></li>
+
+                  <?php }else{?>
+
+
+                      <?php if ($session->roleid = 2){ ?>
+
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="<?php  if(strpos($_SERVER['PHP_SELF'],"/admin/")){echo 'approval_management.php';}else{echo 'admin'.DS.'approval_management.php';} ?>">Approvals</a></li>
+
+
+                      <?php }?>
+
+                  <?php }?>
+
+
+
+
               </ul>
-            <?php }
-            ?>
+            <?php }?>
             </li>
             <li class="dropdown">
 
