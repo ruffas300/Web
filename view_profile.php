@@ -59,12 +59,12 @@ if(isset($_GET['id'])) {
                 echo "
                    <div class=\"col-lg-12 activity-info\" style='margin-left: 2%' >
                     <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
-                        " . $live_feed->title . "
+                        " . stringCleanup($live_feed->title) . "
                       </h2></a><p>
                       </h1>
                         <h4 style='font-size: 10'>Recognized by <a href='view_profile.php?id=$live_feed->giver_id'style='font-size: 12'>". $giver . "</a>!</h4>
                         <span style='margin-top: inherit; font-weight:normal; font-size: 14'>
-                        " . $live_feed->description . "
+                        " . stringCleanup($live_feed->description) . "
                        </span><br>";
 
                 $allCategorited =  get_allcategory_Objects($live_feed->id);
@@ -90,7 +90,7 @@ if(isset($_GET['id'])) {
                     $commentor = get_full_name($comment->user);
                     $date = date_create($comment->date);
                     $commentDate = date_format($date,'F d, Y');
-                    $commentText = $comment->commentText;
+                    $commentText = stringCleanup($comment->commentText);
 
                     //html for said comments
                     if($i < 4) {

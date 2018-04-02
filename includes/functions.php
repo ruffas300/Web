@@ -302,11 +302,22 @@ function getAllRecRecog($id)
     global $database;
     //makes empty array
     $allRecogs = array();
-    $giverResults = $database->query("SELECT * FROM appreciation WHERE receiver_id LIKE '%".$id.",%' ORDER BY date_given");
+    $giverResults = $database->query("SELECT * FROM appreciation WHERE receiver_id LIKE '%".$id.",%' AND status_id = 4 ORDER BY date_given");
 
     while ($row = $database->fetch_array($giverResults)) {
-        $thisRecog = Appreciation::instantiate($row);
-        $allRecogs[] = $thisRecog;
+
+        $rowId = rtrim($row['receiver_id'],",");
+        $allIdsAsArray = explode(",", $rowId);
+
+            foreach ($allIdsAsArray as $thisId ){
+
+                if($thisId == $id){
+                    $thisRecog = Appreciation::instantiate($row);
+                    $allRecogs[] = $thisRecog;
+                }
+
+            }
+
         }
 
     return $allRecogs;
@@ -425,4 +436,13 @@ function get_allReciverAsUser($reciever_id) {
     return $allusuers;
 
 
+
+}
+
+
+function stringCleanup($string){
+    $string = str_replace('\r\n','<br>',$string);
+    $string = stripslashes($string);
+
+    return $string;
 }

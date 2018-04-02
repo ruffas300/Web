@@ -73,7 +73,7 @@ $appreciations = Appreciation::find_by_sql("SELECT * FROM appreciation WHERE sta
                 <td><?php echo get_full_name($appreciation->giver_id); ?></td>
                 <td><?php echo $appreciation->date_given; ?></td>
                 <td><?php echo get_allcategory_names($appreciation->id); ?></td>
-                <td><?php echo $appreciation->description; ?></td>
+                <td><?php echo stringCleanup($appreciation->description); ?></td>
                 <td><?php echo $appreciation->point_value; ?></td>
 
                 <td><a href="edit_appreciation.php?id=<?php echo $appreciation->id; ?>">Edit</a> | <a href="#" data-href="process_appreciation.php?id=<?php echo $appreciation->id; ?>&type=d" data-toggle="modal" data-target="#confirm-delete">Deny</a> | <a href="process_appreciation.php?id=<?php echo $appreciation->id; ?>&type=a">Approve</a></td>

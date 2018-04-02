@@ -51,6 +51,10 @@ if(password_verify("dunmore12", $currentPassword)){
                             $category = get_allcategory_names($live_feed->id);
                             $firstReciever = get_allReciverAsUser($live_feed->receiver_id);
                             $picture = User::get_picture_id($firstReciever[0]->id);
+                            $title = stringCleanup($live_feed->title);
+                            $desc =stringCleanup($live_feed->description);
+
+
                             echo "
                <div class=\"hidden-xxs col-xs-2 col-md-1 no-padding\">
                  <img src=\"pictures/". $picture."\" align='left' class=\"circle\" style=\"height:85px; width: 85px;\"/>
@@ -59,7 +63,7 @@ if(password_verify("dunmore12", $currentPassword)){
                    <div class=\"col-xxs-12 col-xs-10 col-lg-10 activity-info\">
 
                     <h1><a href='view_appreciation.php?id=$live_feed->id'> <h2 style='position: relative; font-size: 22'>
-                        " . $live_feed->title . "
+                        " . $title . "
                       </h2></a><p>
                       </h1>
                     
@@ -70,7 +74,7 @@ if(password_verify("dunmore12", $currentPassword)){
                       
                      
                        <span style='margin-top: inherit; font-weight:normal; font-size: 14'>
-                        " . $live_feed->description . "
+                        " . $desc . "
                        </span><br>";
                             $commentLimit = 3;
                             $allCategorited =  get_allcategory_Objects($live_feed->id);
@@ -96,7 +100,7 @@ if(password_verify("dunmore12", $currentPassword)){
                                 $commentor = get_full_name($comment->user);
                                 $date = date_create($comment->date);
                                 $commentDate = date_format($date,'F d, Y');
-                                $commentText = $comment->commentText;
+                                $commentText = stringCleanup($comment->commentText);
 
                                 //html for said comments
                                 if($i < $commentLimit) {

@@ -157,11 +157,52 @@ class Appreciation {
         $sql .= $database->escape_value($this->is_public)."', '";
         $sql .= $database->escape_value($this->status_id)."')";
         if ($database->query($sql)) {
+            self::process_manager_noti($this->id);
+
             return true;
+
         } else {
             return false;
         }
     }
+
+
+
+    public static function process_manager_noti($app_id){
+
+        global $database;
+        //get rec information
+
+        $appSql = "SELECT * FROM appreciation WHERE id ={$app_id}";
+        $appResult = $database->query($appSql);
+        $appRow = $database->fetch_array($appResult);
+
+        $allIds = $appRow["receiver_id"];
+
+        $allUsers = get_allReciverAsUser($allIds);
+        $sql_give = "SELECT id, first_name, last_name, email_address FROM user WHERE id = (SELECT giver_id FROM appreciation WHERE id={$app_id})";
+        $result_give = $database->query($sql_give);
+        $row_give = $database->fetch_array($result_give);
+        $allUsers = get_allReciverAsUser($allIds);
+
+
+
+        foreach ($allUsers as $thisGuy) {
+
+            $sql = "SELECT id, first_name, last_name, email_address, manager_id FROM user WHERE id =".$thisGuy->id;
+            $result = $database->query($sql);
+            $row = $database->fetch_array($result);
+            $manager = getUserById($thisGuy->manager_id);
+
+
+            $mail_info = array($row['first_name'], $row['last_name'], $row_give['first_name'], $row_give['last_name'], $appRow['description'], $manager['email_address']);
+
+
+        }
+
+    }
+
+
     
     public static function process_appreciation($id, $approver_id, $status) {
         //approve or deny an appreciation
@@ -191,6 +232,11 @@ class Appreciation {
         $appSql = "SELECT * FROM appreciation WHERE id ={$app_id}";
         $appResult = $database->query($appSql);
         $appRow = $database->fetch_array($appResult);
+
+        $allIds = $appRow["receiver_id"];
+
+        $allUsers = get_allReciverAsUser($allIds);
+
 
 
         $sql = "SELECT id, first_name, last_name, email_address, manager_id FROM user WHERE id = (SELECT receiver_id FROM appreciation WHERE id={$app_id})";
@@ -236,6 +282,8 @@ class Appreciation {
         //then loop over those values getting the name for each id and spitting them out on the screen.
 
         //array of information for emails
+
+
             $mail_info = array($row['first_name'], $row['last_name'], $row['email_address'], $row_give['first_name'], $row_give['last_name'], $row_give['email_address'],$category, $appreciation->description, $appreciation->point_value, $manager_info->first_name, $manager_info->last_name, $manager_info->email_address);
 
             //check to see if the receiver wants an email, if so, send

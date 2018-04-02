@@ -41,7 +41,7 @@ if(isset($_GET['type'])){
 
                 //ToDo Link post
                 $tableData .= "<tr><td >" . $thisPost->date_given . "</td>
-                <td ><a>" . get_full_name($thisPost->giver_id) . "</a>" . " received a Peer Recognition from ". "<a>" . get_full_name($thisPost->receiver_id) . "</a></td>
+                <td ><a>" . get_allReceiverAsNameLink($thisPost->receiver_id) . "</a>" . " received a Peer Recognition from ". "<a>" . get_full_name($thisPost->giver_id) . "</a></td>
                 <td ><a>" . $thisPost->title . "</a><br> " . $thisPost->description . "</td></tr>";
             }
 
@@ -61,7 +61,7 @@ if(isset($_GET['type'])){
 
                 //ToDo Link post
                 $tableData .= "<tr><td >" . $thisPost->date_given . "</td>
-                <td ><a>" . get_full_name($thisPost->giver_id) . "</a>" . " wrote a peer recognition post for ". "<a>" . get_full_name($thisPost->receiver_id) . "</a></td>
+                <td ><a>" . get_full_name($thisPost->giver_id) . "</a>" . " wrote a peer recognition post for ". "<a>" . get_allReceiverAsNameLink($thisPost->receiver_id) . "</a></td>
                 <td ><a>" . $thisPost->title . "</a><br> " . $thisPost->description . "</td></tr>";
             }
 
