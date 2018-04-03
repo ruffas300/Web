@@ -94,6 +94,7 @@ class Send_Mail {
 
         $mail->Subject = 'You have been recognized for '.$mail_info[6].'!';
         $mail->Body    = $mail_info[0].', you got an appreciation from '.$mail_info[3].' '.$mail_info[4].' for '.'!<br><br><br><br>Description: '.$mail_info[7];
+        "<br><br><br><br><a href='https://www.dunmore.com/dunDifference/main.php'>";
         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         
         if(!$mail->send()) {
