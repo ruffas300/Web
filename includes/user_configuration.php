@@ -67,7 +67,7 @@ class User_Configuration {
         //on create the default values will be loaded, all emails subscribed
         global $database;
         $sql = "INSERT INTO user_configuration (user_id, rec_self, give_approved, give_denied, rec_direct_report) VALUES ('";
-        $sql .= $database->escape_value($this->user_id)."', '0', '0', '0', '0')";
+        $sql .= $database->escape_value($this->user_id)."', '1', '1', '1', '1')";
         if ($database->query($sql)) {
             return true;
         } else {
