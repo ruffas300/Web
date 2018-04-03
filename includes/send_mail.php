@@ -49,9 +49,8 @@ class Send_Mail {
     }
 
     public function Manager_needs_approval ($mail_info) {
-        //array is rec first name, rec last name, rec email, giver first name, giver last name, giver email, category, description, point value
         $mail = new PHPMailer;
-
+        //$row['first_name'], $row['last_name'], $row_give['first_name'], $row_give['last_name'], $appRow['description'], $manager->email_address
         $mail->isSMTP();
         $mail->Host = $this->host;
         $mail->SMTPAuth = $this->SMTPAuth;
@@ -62,11 +61,11 @@ class Send_Mail {
         $mail->isHTML(true);
 
         $mail->setFrom('dundifference@dunmore.com', 'The Dunmore Difference');
-        $mail->addAddress($mail_info[6]);
+        $mail->addAddress($mail_info[5]);
 
-        $mail->Subject = 'Approval for '.$mail_info[0]. $mail_info[1]. '!';
-        $mail->Body    = $mail_info[0].' got an appreciation from '.$mail_info[2].' '.$mail_info[3].' for '.'!<br><br><br><br>Description: '.$mail_info[5]
-        . "<br><br><br><br> Awaiting your approval";
+        $mail->Subject = 'Recognition approval for '.$mail_info[0]. ' ' .$mail_info[1];
+        $mail->Body    = $mail_info[0].' got an appreciation from '.$mail_info[2].' '.$mail_info[3]. '<br>Description: '.$mail_info[4]
+        . "<br><br><br><br> <a href='https://www.dunmore.com/dunDifference/admin/approval_management.php'>Awaiting your approval</a>";
 
         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
@@ -77,7 +76,6 @@ class Send_Mail {
         }
     }
 
-    
     public function recieve_appreciation ($mail_info) {
         //array is rec first name, rec last name, rec email, giver first name, giver last name, giver email, category, description, point value
         $mail = new PHPMailer;
